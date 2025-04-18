@@ -21,6 +21,7 @@ export const setupSwagger = (app: Express) => {
   app.use(
     ["/api-docs"],
     basicAuth({
+      challenge: true,
       users: {
         admin: adminPassword,
       },
