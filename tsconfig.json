@@ -2,7 +2,8 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2016",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "allowJs": true,
     "sourceMap": true,
     "outDir": "./build",
