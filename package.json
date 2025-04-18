@@ -51,9 +51,11 @@
     "db:migrate": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "dev": "tsx watch src/index.ts",
-    "dev:dkr": "docker-compose -f docker/docker-compose.yml --env-file .env up -d",
-    "dev:dkr:stop": "docker-compose -f docker/docker-compose.yml --env-file .env stop",
-    "dev:dkr:down": "docker-compose -f docker/docker-compose.yml --env-file .env down",
+    "dev:docker": "docker-compose -f docker/docker-compose.dev.yml --env-file .env -p liso-schedule-dev up -d",
+    "dev:docker:stop": "docker-compose -f docker/docker-compose.dev.yml --env-file .env -p liso-schedule-dev stop",
+    "dev:docker:down": "docker-compose -f docker/docker-compose.dev.yml --env-file .env -p liso-schedule-dev down",
+    "dev:docker:logs": "docker-compose -f docker/docker-compose.dev.yml --env-file .env -p liso-schedule-dev logs -f",
+    "dev:docker:reset": "docker-compose -f docker/docker-compose.dev.yml --env-file .env -p liso-schedule-dev down -v",
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:debug": "eslint . --debug",
@@ -63,7 +65,7 @@
     "prisma:show": "prisma studio",
     "seed": "tsx prisma/seed.ts",
     "start": "node build/src/index.js",
-    "start:dev": "npm run dev:dkr && npm run dev",
+    "start:dev": "npm run dev:docker && npm run dev",
     "test": "prisma generate && jest --coverage"
   },
   "keywords": [
