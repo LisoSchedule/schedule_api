@@ -3,6 +3,7 @@ import { z as zod } from "zod";
 
 const envSchema = zod.object({
   CORS_ORIGIN: zod.string().optional().default("*"),
+  ADMIN_PASSWORD: zod.string().optional().default("admin"),
 
   BASE_URL: zod.string(),
   PORT: zod.coerce.number().optional().default(3000),
