@@ -1,21 +1,35 @@
 {
-  "name": "liso-schedule-api-part",
+  "name": "liso-schedule-api",
   "version": "1.0.0",
-  "author": "Andrii Kononenko [wastardy]",
-  "email": "wastardy.k@gmail.com",
-  "description": "REST API for managing university schedules, assignments, and reminders, integrated with a Telegram bot interface for student use.",
+  "description": "RESTful API for managing university schedules, assignments, and reminders, integrated with a Telegram bot interface",
+  "author": {
+    "name": "Andrew Kononenko [wastardy]",
+    "email": "wastardy.k@gmail.com",
+    "url": "https://github.com/wastardy"
+  },
+  "license": "MIT",
   "type": "module",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
+  "scripts": {},
   "keywords": [
     "node",
     "express",
-    "mvc",
-    "restful",
-    "api"
+    "typescript",
+    "rest",
+    "api",
+    "postgres",
+    "prisma",
+    "docker",
+    "telegram",
+    "university",
+    "schedule",
+    "reminders"
   ],
-  "license": "ISC"
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LisoSchedule/schedule_api.git"
+  }
 }
