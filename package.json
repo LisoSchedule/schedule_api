@@ -10,7 +10,16 @@
   "license": "MIT",
   "type": "module",
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc",
+    "db:reset": "prisma migrate reset",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "prisma:format": "prisma format",
+    "prisma:generate": "prisma generate",
+    "prisma:show": "prisma studio",
+    "seed": "tsx prisma/seed.ts"
+  },
   "keywords": [
     "node",
     "express",
