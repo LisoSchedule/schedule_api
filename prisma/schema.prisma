@@ -1,15 +1,40 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum UserStep {
+  ChooseNickname
+  ChoosingNickname
+  ChooseGroup
+  ChooseSubGroup
+  MainMenu
+}
+
+model User {
+  id        Int      @id @default(autoincrement()) @map("user_id")
+  chatId    BigInt   @map("chat_id")
+  username  String?  @map("username")
+  nickname  String?  @map("nickname")
+  groupId   Int      @map("group_id")
+  step      UserStep @map("step")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  group Group @relation(fields: [groupId], references: [id])
+}
+
+model Group {
+  id        Int      @id @default(autoincrement()) @map("group_id")
+  subGroup  Int      @map("sub_group")
+  name      String?  @map("name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users User[]
 }
