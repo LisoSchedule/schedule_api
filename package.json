@@ -1,0 +1,21 @@
+{
+  "name": "liso-schedule-api-part",
+  "version": "1.0.0",
+  "author": "Andrii Kononenko [wastardy]",
+  "email": "wastardy.k@gmail.com",
+  "description": "REST API for managing university schedules, assignments, and reminders, integrated with a Telegram bot interface for student use.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mvc",
+    "restful",
+    "api"
+  ],
+  "license": "ISC"
+}
