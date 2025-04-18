@@ -25,3 +25,5 @@ Thumbs.db
 
 # Sentry config file
 .sentryclirc
+
+template.prisma
