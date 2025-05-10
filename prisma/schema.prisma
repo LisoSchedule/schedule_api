@@ -8,6 +8,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum DayOfWeek {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+enum TeacherPosition {
+  Assistant
+  AssociateProfessor
+  Professor
+}
+
+enum RepeatType {
+  Daily
+  Weekly
+  Monthly
+}
+
+enum SubjectType {
+  Lecture
+  Practice
+}
+
 enum UserStep {
   ChooseNickname
   ChoosingNickname
@@ -16,25 +43,89 @@ enum UserStep {
   MainMenu
 }
 
+model Group {
+  id       Int    @id @default(autoincrement())
+  name     String
+  subGroup Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users   User[]
+  classes Class[]
+}
+
 model User {
-  id        Int      @id @default(autoincrement()) @map("user_id")
-  chatId    BigInt   @map("chat_id")
-  username  String?  @map("username")
-  nickname  String?  @map("nickname")
-  groupId   Int      @map("group_id")
-  step      UserStep @map("step")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id        Int      @id @default(autoincrement())
+  chatId    BigInt
+  username  String?
+  nickname  String?
+  groupId   Int
+  step      UserStep
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   group Group @relation(fields: [groupId], references: [id])
 }
 
-model Group {
-  id        Int      @id @default(autoincrement()) @map("group_id")
-  subGroup  Int      @map("sub_group")
-  name      String?  @map("name")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+model Subject {
+  id   Int         @id @default(autoincrement())
+  name String
+  type SubjectType
 
-  users User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  classes   Class[]
+}
+
+model Teacher {
+  id       Int             @id @default(autoincrement())
+  name     String
+  position TeacherPosition
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  classes Class[]
+}
+
+model Audience {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  classes Class[]
+}
+
+model Class {
+  id         Int      @id @default(autoincrement())
+  subjectId  Int
+  teacherId  Int
+  audienceId Int
+  groupId    Int
+  start_time DateTime
+  duration   Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject  Subject  @relation(fields: [subjectId], references: [id])
+  teacher  Teacher  @relation(fields: [teacherId], references: [id])
+  audience Audience @relation(fields: [audienceId], references: [id])
+  group    Group    @relation(fields: [groupId], references: [id])
+
+  schedules ClassesSchedule[]
+}
+
+model ClassesSchedule {
+  id           Int        @id @default(autoincrement())
+  classId      Int
+  start_date   DateTime
+  end_date     DateTime
+  repeat_type  RepeatType
+  repeat_value Int
+
+  class Class @relation(fields: [classId], references: [id])
 }
