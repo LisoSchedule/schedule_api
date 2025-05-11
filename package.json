@@ -8,7 +8,6 @@
     "url": "https://github.com/wastardy"
   },
   "license": "MIT",
-  "type": "module",
   "main": "server.js",
   "dependencies": {
     "@prisma/client": "^6.6.0",
