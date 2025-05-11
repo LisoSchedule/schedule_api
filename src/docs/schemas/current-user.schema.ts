@@ -10,7 +10,8 @@
  *           description: Unique identifier for the user
  *           example: 1
  *         chatId:
- *           type: bigint
+ *           type: integer
+ *           format: int64
  *           description: Unique identifier for the telegram chat
  *           example: 123456789012345678
  *         username:

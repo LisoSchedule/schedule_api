@@ -6,10 +6,10 @@
  *       type: object
  *       properties:
  *         chatId:
- *           type: string
+ *           type: integer
  *           format: int64
  *           description: Unique identifier for the telegram chat
- *           example: "123456789012345678"
+ *           example: 123456789012345678
  *         username:
  *           type: string
  *           description: User's telegram username
@@ -28,6 +28,7 @@
  *           type: string
  *           enum: ["ChooseNickname", "ChooseGroup", "MainMenu"]
  *           description: Current step of the user in the bot
+ *           example: "MainMenu"
  *       required:
  *         - chatId
  *         - groupId

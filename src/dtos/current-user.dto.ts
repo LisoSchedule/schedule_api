@@ -2,7 +2,7 @@ import { User, UserStep } from "@prisma/client";
 
 export class CurrentUserDto {
   id!: number;
-  chatId!: bigint;
+  chatId!: number;
   username!: string | null;
   nickname!: string | null;
   groupId!: number;
@@ -12,7 +12,7 @@ export class CurrentUserDto {
 
   constructor(user: Partial<User>) {
     this.id = user.id!;
-    this.chatId = user.chatId!;
+    this.chatId = Number(user.chatId!);
     this.username = user.username || null;
     this.nickname = user.nickname || null;
     this.groupId = user.groupId!;
