@@ -11,4 +11,14 @@ export class UserRepository {
 
     return newUser;
   }
+
+  async findUserByChatId(chatId: bigint): Promise<User | null> {
+    const user = await this.userRepository.findFirst({
+      where: {
+        chatId,
+      },
+    });
+
+    return user;
+  }
 }
