@@ -8,7 +8,6 @@
     "url": "https://github.com/wastardy"
   },
   "license": "MIT",
-  "type": "module",
   "main": "server.js",
   "dependencies": {
     "@prisma/client": "^6.6.0",
@@ -16,6 +15,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-basic-auth": "^1.2.1",
+    "express-rate-limit": "^7.5.0",
+    "http-errors": "^2.0.0",
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
