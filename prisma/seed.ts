@@ -1,6 +1,5 @@
 import {
   PrismaClient,
-  UserStep,
   RepeatType,
   SubjectType,
   TeacherPosition,
@@ -23,7 +22,6 @@ async function seed() {
         username: "wastardy",
         nickname: "Andrew",
         groupId: group.id,
-        step: UserStep.MainMenu,
       },
     });
 

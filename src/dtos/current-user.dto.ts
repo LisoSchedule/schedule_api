@@ -1,4 +1,4 @@
-import { User, UserStep } from "@prisma/client";
+import { User } from "@prisma/client";
 
 export class CurrentUserDto {
   id!: number;
@@ -6,7 +6,6 @@ export class CurrentUserDto {
   username!: string | null;
   nickname!: string | null;
   groupId!: number;
-  step!: UserStep;
   createdAt!: Date;
   updatedAt!: Date;
 
@@ -16,7 +15,6 @@ export class CurrentUserDto {
     this.username = user.username || null;
     this.nickname = user.nickname || null;
     this.groupId = user.groupId!;
-    this.step = user.step!;
     this.createdAt = user.createdAt!;
     this.updatedAt = user.updatedAt!;
   }
