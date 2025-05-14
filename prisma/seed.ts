@@ -4,6 +4,7 @@ import {
   SubjectType,
   TeacherPosition,
 } from "@prisma/client";
+import { timeConstant } from "../src/constants/time.constant";
 
 const prisma = new PrismaClient();
 
@@ -214,9 +215,10 @@ async function seed() {
       const teacherId = getTeacherId(lesson.teacher);
       const audienceId = getAudienceId(lesson.audience);
 
-      const start_time = new Date(lesson.start);
-      const end_time = new Date(lesson.end);
-      const duration = (end_time.getTime() - start_time.getTime()) / 60000;
+      const startTime = new Date(lesson.start);
+      const endTime = new Date(lesson.end);
+      const duration =
+        (endTime.getTime() - startTime.getTime()) / timeConstant.ONE_MINUTE;
 
       const classItem = await prisma.class.create({
         data: {
@@ -224,18 +226,18 @@ async function seed() {
           teacherId: teacherId!,
           audienceId: audienceId!,
           groupId: group.id,
-          start_time,
+          startTime,
           duration,
         },
       });
 
-      await prisma.classesSchedule.create({
+      await prisma.classRecurrence.create({
         data: {
           classId: classItem.id,
-          start_date: lesson.start_date,
-          end_date: new Date("2024-12-15"),
-          repeat_type: lesson.repeat_type,
-          repeat_value: 1,
+          startDate: lesson.start_date,
+          endDate: new Date("2024-12-15"),
+          repeatType: lesson.repeat_type,
+          repeatValue: 1,
         },
       });
     }
