@@ -46,7 +46,7 @@ model Group {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   users   User[]
-  classes Class[]
+  lessons Lesson[]
 
   @@map("groups")
 }
@@ -74,7 +74,7 @@ model Subject {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  classes Class[]
+  lessons Lesson[]
 
   @@map("subjects")
 }
@@ -87,7 +87,7 @@ model Teacher {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  classes Class[]
+  lessons Lesson[]
 
   @@map("teachers")
 }
@@ -99,17 +99,17 @@ model Audience {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  classes Class[]
+  lessons Lesson[]
 
   @@map("audiences")
 }
 
-model Class {
+model Lesson {
   id         Int      @id @default(autoincrement())
-  subjectId  Int
-  teacherId  Int
-  audienceId Int
-  groupId    Int
+  subjectId  Int      @map("subject_id")
+  teacherId  Int      @map("teacher_id")
+  audienceId Int      @map("audience_id")
+  groupId    Int      @map("group_id")
   startTime  DateTime @map("start_time")
   duration   Int
 
@@ -121,20 +121,20 @@ model Class {
   audience Audience @relation(fields: [audienceId], references: [id])
   group    Group    @relation(fields: [groupId], references: [id])
 
-  schedules ClassRecurrence[]
+  recurrences LessonRecurrence[]
 
-  @@map("classes")
+  @@map("lessons")
 }
 
-model ClassRecurrence {
+model LessonRecurrence {
   id          Int        @id @default(autoincrement())
-  classId     Int
+  lessonId    Int        @map("lesson_id")
   startDate   DateTime   @map("start_date")
   endDate     DateTime   @map("end_date")
   repeatType  RepeatType @map("repeat_type")
   repeatValue Int        @map("repeat_value")
 
-  class Class @relation(fields: [classId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id])
 
-  @@map("class_recurrences")
+  @@map("lesson_recurrences")
 }
