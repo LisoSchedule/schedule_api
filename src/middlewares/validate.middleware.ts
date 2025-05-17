@@ -22,17 +22,7 @@ export function validate(schema: AnyZodObject) {
 
     // Setting query, body and params in case schema has z.coerce
 
-    if (result.data["query"] !== undefined) {
-      req.query = result.data["query"];
-    }
-
-    if (result.data["body"] !== undefined) {
-      req.body = result.data["body"];
-    }
-
-    if (result.data["params"] !== undefined) {
-      req.params = result.data["params"];
-    }
+    res.locals["validated"] = result.data;
 
     next();
   };
