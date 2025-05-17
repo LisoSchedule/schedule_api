@@ -7,9 +7,11 @@ import {
   addDays,
   startOfWeek,
   endOfWeek,
+  getDay,
 } from "date-fns";
 import { LessonRecurrence, RepeatType } from "@prisma/client";
 import { ScheduleType } from "../enums/schedule-type.enum";
+
 export class ScheduleDateCalculation {
   /**
    * @description
@@ -23,17 +25,21 @@ export class ScheduleDateCalculation {
     switch (repeatType) {
       case RepeatType.Daily: {
         const dayDifference = differenceInDays(date, startDate);
-        return dayDifference % repeatValue === 0;
+        return dayDifference >= 0 && dayDifference % repeatValue === 0;
       }
       case RepeatType.Weekly: {
+        if (getDay(date) !== getDay(startDate)) return false;
+
         const weekDifference = differenceInWeeks(date, startDate);
-        return weekDifference % repeatValue === 0;
+        return weekDifference >= 0 && weekDifference % repeatValue === 0;
       }
       case RepeatType.Monthly: {
+        if (date.getDate() !== startDate.getDate()) return false;
+
         const monthDifference =
           (date.getFullYear() - startDate.getFullYear()) * 12 +
           (date.getMonth() - startDate.getMonth());
-        return monthDifference % repeatValue === 0;
+        return monthDifference >= 0 && monthDifference % repeatValue === 0;
       }
       default:
         return false;
