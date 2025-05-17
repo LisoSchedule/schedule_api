@@ -2,9 +2,11 @@ import { z as zod } from "zod";
 import { ScheduleType } from "../enums/schedule-type.enum";
 
 export const GetScheduleSchema = zod.object({
-  query: zod.object({
+  params: zod.object({
     chatId: zod.coerce.number(),
-    date: zod.coerce.date().optional(),
+  }),
+  query: zod.object({
+    date: zod.string().optional(),
     type: zod.nativeEnum(ScheduleType).optional(),
   }),
 });
