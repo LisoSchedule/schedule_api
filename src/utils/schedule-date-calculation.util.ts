@@ -15,7 +15,7 @@ export class ScheduleDateCalculation {
    * @description
    * Check if the provided date fits the recurrence rule
    */
-  static isDateInLessonRecurrence(date: Date, recurrence: LessonRecurrence): boolean {
+  isDateInLessonRecurrence(date: Date, recurrence: LessonRecurrence): boolean {
     const { startDate, endDate, repeatType, repeatValue } = recurrence;
 
     if (isBefore(date, startDate) || isAfter(date, endDate)) return false;
@@ -44,17 +44,39 @@ export class ScheduleDateCalculation {
    * @description
    * Check if the provided date range fits the recurrence rule
    */
-  static isDateRangeInLessonRecurrence(
-    rangeStart: Date,
-    rangeEnd: Date,
-    recurrence: LessonRecurrence,
-  ): boolean {
+  isDateRangeInLessonRecurrence(dates: Date[], recurrence: LessonRecurrence): boolean {
     const { startDate, endDate } = recurrence;
 
-    if (isAfter(rangeStart, endDate) || isBefore(rangeEnd, startDate)) return false;
+    return dates.some((day) => {
+      if (isBefore(day, startDate) || isAfter(day, endDate)) return false;
+      return this.isDateInLessonRecurrence(day, recurrence);
+    });
+  }
 
-    const days = eachDayOfInterval({ start: rangeStart, end: rangeEnd });
-
-    return days.some((day) => this.isDateInLessonRecurrence(day, recurrence));
+  /**
+   * @description
+   * Return date range for retrieving schedule
+   * based on the provided date and passed schedule type
+   *
+   * @param date - date to calculate the range for.
+   * @param type - schedule type (today, tomorrow, or week).
+   * - today: just return date
+   * - tomorrow: passed date + 1 day
+   * - week: return date range from start of week to end of week
+   */
+  getScheduleDateRange(date: Date, type: ScheduleType): Date[] | Date {
+    switch (type) {
+      case ScheduleType.TOMORROW:
+        return addDays(date, 1);
+      case ScheduleType.TODAY:
+        return date;
+      case ScheduleType.WEEK:
+        return eachDayOfInterval({
+          start: startOfWeek(date, { weekStartsOn: 1 }),
+          end: endOfWeek(date, { weekStartsOn: 1 }),
+        });
+      default:
+        return date;
+    }
   }
 }
