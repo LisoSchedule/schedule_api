@@ -1,6 +1,6 @@
 import { RepeatType } from "@prisma/client";
 
-export interface ClassRecurrenceDto {
+export interface LessonRecurrenceDto {
   startDate: Date;
   endDate: Date;
   repeatType: RepeatType;
