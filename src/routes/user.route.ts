@@ -37,11 +37,11 @@ const userController = new UserController();
  *                 data:
  *                   type: object
  *                   properties:
- *                     user:
- *                       $ref: '#/components/schemas/CurrentUser'
  *                     message:
  *                       type: string
  *                       example: "CREATED"
+ *                     user:
+ *                       $ref: '#/components/schemas/CurrentUser'
  *       400:
  *         description: Invalid request body or user creation failed
  *       429:

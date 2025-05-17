@@ -6,7 +6,6 @@ import { SuccessResponseDto } from "../dtos/success-response.dto";
 import { CreateUserDto } from "../dtos/create-user.dto";
 import { CurrentUserDto } from "../dtos/current-user.dto";
 import successConstant from "../constants/success.constant";
-import errorConstant from "../constants/error.constant";
 
 export class UserController {
   private readonly userService: UserService = new UserService();
@@ -20,8 +19,8 @@ export class UserController {
 
     res.status(201).json(
       new SuccessResponseDto({
-        user: new CurrentUserDto(newUser),
         message: successConstant.CREATED,
+        user: new CurrentUserDto(newUser),
       }),
     );
   }
