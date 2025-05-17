@@ -26,11 +26,6 @@
  *           type: number
  *           description: Unique identifier for the group
  *           example: 1
- *         step:
- *           type: string
- *           enum: ["ChooseNickname", "ChooseGroup", "MainMenu"]
- *           description: Current step of the user in the bot
- *           example: "MainMenu"
  *         createdAt:
  *           type: string
  *           format: date-time

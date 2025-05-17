@@ -10,7 +10,7 @@ export class UserService {
   private readonly userRepository: UserRepository = new UserRepository();
 
   async createUser(data: CreateUserDto) {
-    const { chatId, username, nickname, step, groupId } = data.body || data;
+    const { chatId, username, nickname, groupId } = data.body || data;
 
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
@@ -22,7 +22,6 @@ export class UserService {
       chatId: BigInt(chatId),
       username: username ?? null,
       nickname: nickname ?? null,
-      step,
       group: {
         connect: {
           id: groupId,

@@ -24,13 +24,7 @@
  *           type: integer
  *           description: Unique identifier for the group
  *           example: 1
- *         step:
- *           type: string
- *           enum: ["ChooseNickname", "ChooseGroup", "MainMenu"]
- *           description: Current step of the user in the bot
- *           example: "MainMenu"
  *       required:
  *         - chatId
  *         - groupId
- *         - step
  */

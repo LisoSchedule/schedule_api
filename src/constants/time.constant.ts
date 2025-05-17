@@ -8,6 +8,7 @@ const FIVE_MINUTES = ONE_MINUTE * 5;
 const FIFTEEN_MINUTES = ONE_MINUTE * 15;
 const THIRTY_MINUTES = ONE_MINUTE * 30;
 const ONE_HOUR = ONE_MINUTE * 60;
+const ONE_DAY = ONE_HOUR * 24;
 
 export const timeConstant = {
   ONE_SECOND,
@@ -20,4 +21,5 @@ export const timeConstant = {
   FIFTEEN_MINUTES,
   THIRTY_MINUTES,
   ONE_HOUR,
+  ONE_DAY,
 };

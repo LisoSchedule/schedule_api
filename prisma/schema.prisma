@@ -19,9 +19,11 @@ enum DayOfWeek {
 }
 
 enum TeacherPosition {
-  Assistant
-  AssociateProfessor
+  DepartmentProfessor
   Professor
+  AssociateProfessor
+  SeniorLecturer
+  Assistant
 }
 
 enum RepeatType {
@@ -35,37 +37,33 @@ enum SubjectType {
   Practice
 }
 
-enum UserStep {
-  ChooseNickname
-  ChoosingNickname
-  ChooseGroup
-  ChooseSubGroup
-  MainMenu
-}
-
 model Group {
   id       Int    @id @default(autoincrement())
   name     String
-  subGroup Int
+  subGroup Int    @map("sub_group")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   users   User[]
-  classes Class[]
+  lessons Lesson[]
+
+  @@map("groups")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  chatId    BigInt
-  username  String?
-  nickname  String?
-  groupId   Int
-  step      UserStep
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id       Int     @id @default(autoincrement())
+  chatId   BigInt  @map("chat_id")
+  username String?
+  nickname String?
+  groupId  Int     @map("group_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   group Group @relation(fields: [groupId], references: [id])
+
+  @@map("users")
 }
 
 model Subject {
@@ -73,9 +71,12 @@ model Subject {
   name String
   type SubjectType
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  classes   Class[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  lessons Lesson[]
+
+  @@map("subjects")
 }
 
 model Teacher {
@@ -83,49 +84,57 @@ model Teacher {
   name     String
   position TeacherPosition
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  classes Class[]
+  lessons Lesson[]
+
+  @@map("teachers")
 }
 
 model Audience {
   id   Int    @id @default(autoincrement())
   name String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  classes Class[]
+  lessons Lesson[]
+
+  @@map("audiences")
 }
 
-model Class {
+model Lesson {
   id         Int      @id @default(autoincrement())
-  subjectId  Int
-  teacherId  Int
-  audienceId Int
-  groupId    Int
-  start_time DateTime
+  subjectId  Int      @map("subject_id")
+  teacherId  Int      @map("teacher_id")
+  audienceId Int      @map("audience_id")
+  groupId    Int      @map("group_id")
+  startTime  DateTime @map("start_time")
   duration   Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   subject  Subject  @relation(fields: [subjectId], references: [id])
   teacher  Teacher  @relation(fields: [teacherId], references: [id])
   audience Audience @relation(fields: [audienceId], references: [id])
   group    Group    @relation(fields: [groupId], references: [id])
 
-  schedules ClassesSchedule[]
+  recurrences LessonRecurrence[]
+
+  @@map("lessons")
 }
 
-model ClassesSchedule {
-  id           Int        @id @default(autoincrement())
-  classId      Int
-  start_date   DateTime
-  end_date     DateTime
-  repeat_type  RepeatType
-  repeat_value Int
+model LessonRecurrence {
+  id          Int        @id @default(autoincrement())
+  lessonId    Int        @map("lesson_id")
+  startDate   DateTime   @map("start_date")
+  endDate     DateTime   @map("end_date")
+  repeatType  RepeatType @map("repeat_type")
+  repeatValue Int        @map("repeat_value")
 
-  class Class @relation(fields: [classId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@map("lesson_recurrences")
 }

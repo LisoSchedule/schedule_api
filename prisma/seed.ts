@@ -1,10 +1,4 @@
-import {
-  PrismaClient,
-  UserStep,
-  RepeatType,
-  SubjectType,
-  TeacherPosition,
-} from "@prisma/client";
+import { PrismaClient, RepeatType, SubjectType, TeacherPosition } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -23,12 +17,8 @@ async function seed() {
         username: "wastardy",
         nickname: "Andrew",
         groupId: group.id,
-        step: UserStep.MainMenu,
       },
     });
-
-    const startOfFirstWeek = new Date("2024-09-02T08:30:00Z");
-    const startOfSecondWeek = new Date("2024-09-09T08:30:00Z");
 
     const subjectsData = [
       { name: "Хмарні технології", type: SubjectType.Practice },
@@ -37,14 +27,8 @@ async function seed() {
       { name: "Вебтехнології та вебдизайн", type: SubjectType.Lecture },
       { name: "Технології захисту інформації", type: SubjectType.Practice },
       { name: "Технології захисту інформації", type: SubjectType.Lecture },
-      {
-        name: "Програмування мобільних систем під Android",
-        type: SubjectType.Practice,
-      },
-      {
-        name: "Програмування мобільних систем під Android",
-        type: SubjectType.Lecture,
-      },
+      { name: "Програмування мобільних систем під Android", type: SubjectType.Practice },
+      { name: "Програмування мобільних систем під Android", type: SubjectType.Lecture },
       { name: "Методи та засоби ООАП", type: SubjectType.Practice },
       { name: "Методи та засоби ООАП", type: SubjectType.Lecture },
       { name: "Машинне навчання", type: SubjectType.Practice },
@@ -55,42 +39,21 @@ async function seed() {
 
     const teachersData = [
       { name: "Івасюк Руслан Васильович", position: TeacherPosition.Assistant },
-      {
-        name: "Карашецький Володимир Петрович",
-        position: TeacherPosition.AssociateProfessor,
-      },
+      { name: "Карашецький Володимир Петрович", position: TeacherPosition.AssociateProfessor },
       { name: "Грицюк Юрій Іванович", position: TeacherPosition.Professor },
       { name: "Опришко Марʼян Іванович", position: TeacherPosition.Assistant },
-      {
-        name: "Скоринович Василь Романович",
-        position: TeacherPosition.Assistant,
-      },
+      { name: "Скоринович Василь Романович", position: TeacherPosition.Assistant },
       { name: "Волинець Євген Олегович", position: TeacherPosition.Assistant },
-      {
-        name: "Соколовський Ярослав Іванович",
-        position: TeacherPosition.AssociateProfessor,
-      },
-      {
-        name: "Лукащук Богдан Сергійович",
-        position: TeacherPosition.AssociateProfessor,
-      },
-      { name: "Пірко Ігор Богданович", position: TeacherPosition.Assistant },
+      { name: "Соколовський Ярослав Іванович", position: TeacherPosition.Professor },
+      { name: "Лукащук Богдан Сергійович", position: TeacherPosition.Assistant },
+      { name: "Пірко Ігор Богданович", position: TeacherPosition.AssociateProfessor },
     ];
 
-    const audiencesData = [
-      "Ауд. 36",
-      "Ауд. 4",
-      "Ауд. 46",
-      "Ауд. 47",
-      "Ауд. 6",
-      "Ауд. 1",
-    ];
+    const audiencesData = ["Ауд. 36", "Ауд. 4", "Ауд. 46", "Ауд. 47", "Ауд. 6", "Ауд. 1"];
 
     await prisma.subject.createMany({ data: subjectsData });
     await prisma.teacher.createMany({ data: teachersData });
-    await prisma.audience.createMany({
-      data: audiencesData.map((name) => ({ name })),
-    });
+    await prisma.audience.createMany({ data: audiencesData.map((name) => ({ name })) });
 
     const subjects = await prisma.subject.findMany();
     const teachers = await prisma.teacher.findMany();
@@ -98,116 +61,149 @@ async function seed() {
 
     const getSubjectId = (name: string, type: SubjectType) =>
       subjects.find((s) => s.name === name && s.type === type)?.id;
-    const getTeacherId = (name: string) =>
-      teachers.find((t) => t.name === name)?.id;
-    const getAudienceId = (name: string) =>
-      audiences.find((a) => a.name === name)?.id;
+    const getTeacherId = (name: string) => teachers.find((t) => t.name === name)?.id;
+    const getAudienceId = (name: string) => audiences.find((a) => a.name === name)?.id;
 
     const lessons = [
       {
         subject: { name: "Хмарні технології", type: SubjectType.Practice },
-        audience: "Ауд. 36",
         teacher: "Івасюк Руслан Васильович",
-        start: "2024-09-02T12:10:00Z",
-        end: "2024-09-02T13:45:00Z",
-        start_date: startOfFirstWeek,
+        audience: "Ауд. 36",
+        start_time: "2025-03-17T12:10:00Z",
+        duration: 95,
+        start_date: "2025-03-17T12:10:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
-        subject: {
-          name: "Вебтехнології та вебдизайн",
-          type: SubjectType.Practice,
-        },
+        subject: { name: "Вебтехнології та вебдизайн", type: SubjectType.Practice },
         audience: "Ауд. 4",
         teacher: "Карашецький Володимир Петрович",
-        start: "2024-09-02T14:30:00Z",
-        end: "2024-09-02T16:05:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-17T14:30:00Z",
+        duration: 95,
+        start_date: "2025-03-17T14:30:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
-        subject: {
-          name: "Технології захисту інформації",
-          type: SubjectType.Lecture,
-        },
+        subject: { name: "Технології захисту інформації", type: SubjectType.Lecture },
         audience: "Ауд. 46",
         teacher: "Грицюк Юрій Іванович",
-        start: "2024-09-03T08:30:00Z",
-        end: "2024-09-03T10:05:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-18T08:30:00Z",
+        duration: 95,
+        start_date: "2025-03-18T08:30:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
-        subject: {
-          name: "Програмування мобільних систем під Android",
-          type: SubjectType.Practice,
-        },
+        subject: { name: "Програмування мобільних систем під Android", type: SubjectType.Practice },
         audience: "Ауд. 4",
         teacher: "Опришко Марʼян Іванович",
-        start: "2024-09-03T10:20:00Z",
-        end: "2024-09-03T11:55:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-18T10:20:00Z",
+        duration: 95,
+        start_date: "2025-03-18T10:20:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
-        subject: {
-          name: "Технології захисту інформації",
-          type: SubjectType.Practice,
-        },
+        subject: { name: "Технології захисту інформації", type: SubjectType.Practice },
         audience: "Ауд. 46",
         teacher: "Скоринович Василь Романович",
-        start: "2024-09-03T12:10:00Z",
-        end: "2024-09-03T13:45:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-18T12:10:00Z",
+        duration: 95,
+        start_date: "2025-03-18T12:10:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
-        subject: {
-          name: "Програмування мобільних систем під Android",
-          type: SubjectType.Lecture,
-        },
+        subject: { name: "Програмування мобільних систем під Android", type: SubjectType.Lecture },
         audience: "Ауд. 4",
         teacher: "Опришко Марʼян Іванович",
-        start: "2024-09-03T14:30:00Z",
-        end: "2024-09-03T16:05:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-18T14:30:00Z",
+        duration: 95,
+        start_date: "2025-03-18T14:30:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
         subject: { name: "Методи та засоби ООАП", type: SubjectType.Practice },
         audience: "Ауд. 47",
         teacher: "Волинець Євген Олегович",
-        start: "2024-09-04T08:30:00Z",
-        end: "2024-09-04T10:05:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-19T08:30:00Z",
+        duration: 95,
+        start_date: "2025-03-19T08:30:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
       },
       {
         subject: { name: "Методи та засоби ООАП", type: SubjectType.Lecture },
         audience: "Ауд. 6",
         teacher: "Соколовський Ярослав Іванович",
-        start: "2024-09-04T10:20:00Z",
-        end: "2024-09-04T11:55:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-19T10:20:00Z",
+        duration: 95,
+        start_date: "2025-03-19T10:20:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 2,
       },
       {
         subject: { name: "Машинне навчання", type: SubjectType.Lecture },
         audience: "Ауд. 1",
         teacher: "Лукащук Богдан Сергійович",
-        start: "2024-09-04T10:20:00Z",
-        end: "2024-09-04T11:55:00Z",
-        start_date: startOfSecondWeek,
+        start_time: "2025-03-26T14:30:00Z",
+        duration: 95,
+        start_date: "2025-03-26T14:30:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 2,
       },
       {
         subject: { name: "Математчне моделювання", type: SubjectType.Practice },
         audience: "Ауд. 4",
         teacher: "Пірко Ігор Богданович",
-        start: "2024-09-04T12:10:00Z",
-        end: "2024-09-04T13:45:00Z",
-        start_date: startOfFirstWeek,
+        start_time: "2025-03-19T12:10:00Z",
+        duration: 95,
+        start_date: "2025-03-19T12:10:00Z",
         repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
+      },
+      {
+        subject: { name: "Машинне навчання", type: SubjectType.Practice },
+        audience: "Ауд. 1",
+        teacher: "Лукащук Богдан Сергійович",
+        start_time: "2025-03-19T14:30:00Z",
+        duration: 95,
+        start_date: "2025-03-19T14:30:00Z",
+        repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
+      },
+      {
+        subject: { name: "Вебтехнології та вебдизайн", type: SubjectType.Lecture },
+        audience: "Ауд. 6",
+        teacher: "Карашецький Володимир Петрович",
+        start_time: "2025-03-21T08:30:00Z",
+        duration: 95,
+        start_date: "2025-03-21T08:30:00Z",
+        repeat_type: RepeatType.Weekly,
+        repeat_value: 1,
+      },
+      {
+        subject: { name: "Хмарні технології", type: SubjectType.Lecture },
+        teacher: "Івасюк Руслан Васильович",
+        audience: "Ауд. 6",
+        start_time: "2025-03-21T10:20:00Z",
+        duration: 95,
+        start_date: "2025-03-21T10:20:00Z",
+        repeat_type: RepeatType.Weekly,
+        repeat_value: 2,
+      },
+      {
+        subject: { name: "Математчне моделювання", type: SubjectType.Lecture },
+        audience: "Ауд. 6",
+        teacher: "Пірко Ігор Богданович",
+        start_time: "2025-03-28T10:20:00Z",
+        duration: 95,
+        start_date: "2025-03-28T10:20:00Z",
+        repeat_type: RepeatType.Weekly,
+        repeat_value: 2,
       },
     ];
 
@@ -215,29 +211,27 @@ async function seed() {
       const subjectId = getSubjectId(lesson.subject.name, lesson.subject.type);
       const teacherId = getTeacherId(lesson.teacher);
       const audienceId = getAudienceId(lesson.audience);
+      const startTime = new Date(lesson.start_time);
+      const duration = lesson.duration;
 
-      const start_time = new Date(lesson.start);
-      const end_time = new Date(lesson.end);
-      const duration = (end_time.getTime() - start_time.getTime()) / 60000;
-
-      const classItem = await prisma.class.create({
+      const lessonItem = await prisma.lesson.create({
         data: {
           subjectId: subjectId!,
           teacherId: teacherId!,
           audienceId: audienceId!,
           groupId: group.id,
-          start_time,
+          startTime,
           duration,
         },
       });
 
-      await prisma.classesSchedule.create({
+      await prisma.lessonRecurrence.create({
         data: {
-          classId: classItem.id,
-          start_date: lesson.start_date,
-          end_date: new Date("2024-12-15"),
-          repeat_type: lesson.repeat_type,
-          repeat_value: 1,
+          lessonId: lessonItem.id,
+          startDate: lesson.start_date,
+          endDate: new Date("2025-06-12T23:59:59Z"),
+          repeatType: lesson.repeat_type,
+          repeatValue: lesson.repeat_value,
         },
       });
     }
