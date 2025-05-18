@@ -18,12 +18,12 @@ enum DayOfWeek {
   Sunday
 }
 
-enum TeacherPosition {
-  DepartmentProfessor
-  Professor
-  AssociateProfessor
-  SeniorLecturer
-  Assistant
+enum ReminderTime {
+  FiveMinutes    @map("5")
+  TenMinutes     @map("10")
+  FifteenMinutes @map("15")
+  ThirtyMinutes  @map("30")
+  OneHour        @map("60")
 }
 
 enum RepeatType {
@@ -35,6 +35,14 @@ enum RepeatType {
 enum SubjectType {
   Lecture
   Practice
+}
+
+enum TeacherPosition {
+  DepartmentProfessor
+  Professor
+  AssociateProfessor
+  SeniorLecturer
+  Assistant
 }
 
 model Group {
@@ -61,9 +69,24 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  group Group @relation(fields: [groupId], references: [id])
+  group    Group         @relation(fields: [groupId], references: [id])
+  settings UserSettings?
 
   @@map("users")
+}
+
+model UserSettings {
+  id            Int          @id @default(autoincrement())
+  userId        Int          @unique @map("user_id")
+  notifications Boolean      @map("notifications")
+  reminderTime  ReminderTime @map("reminder_time")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
 }
 
 model Subject {
