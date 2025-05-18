@@ -139,10 +139,10 @@ model Lesson {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  subject  Subject  @relation(fields: [subjectId], references: [id])
-  teacher  Teacher  @relation(fields: [teacherId], references: [id])
-  audience Audience @relation(fields: [audienceId], references: [id])
-  group    Group    @relation(fields: [groupId], references: [id])
+  subject  Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  teacher  Teacher  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  audience Audience @relation(fields: [audienceId], references: [id], onDelete: Cascade)
+  group    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
   recurrences LessonRecurrence[]
 
@@ -157,7 +157,7 @@ model LessonRecurrence {
   repeatType  RepeatType @map("repeat_type")
   repeatValue Int        @map("repeat_value")
 
-  lesson Lesson @relation(fields: [lessonId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@map("lesson_recurrences")
 }
