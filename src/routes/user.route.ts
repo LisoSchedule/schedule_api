@@ -63,3 +63,9 @@ UserRouter.patch(
   validate(UpdateUserSchema),
   catchHandler(userController.updateUser.bind(userController)),
 );
+
+UserRouter.delete(
+  "/:chatId",
+  limiter(timeConstant.ONE_SECOND, 3, true),
+  catchHandler(userController.deleteUser.bind(userController)),
+);
