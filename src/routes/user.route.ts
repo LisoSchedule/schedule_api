@@ -57,6 +57,48 @@ UserRouter.post(
   catchHandler(userController.createUser.bind(userController)),
 );
 
+/**
+ * @swagger
+ * /api/user/{chatId}:
+ *   patch:
+ *     summary: Update a user's settings
+ *     tags: [Users]
+ *     parameters:
+ *       - $ref: '#/components/parameters/chatId'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUserBody'
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     message:
+ *                       type: string
+ *                       example: "UPDATED"
+ *                     user:
+ *                       $ref: '#/components/schemas/CurrentUser'
+ *       400:
+ *         description: Invalid request body
+ *       404:
+ *         description: User not found
+ *       429:
+ *         description: Too many requests - rate limit exceeded
+ *       500:
+ *         description: Internal server error
+ */
 UserRouter.patch(
   "/:chatId",
   limiter(timeConstant.ONE_SECOND, 3, true),
@@ -64,6 +106,38 @@ UserRouter.patch(
   catchHandler(userController.updateUser.bind(userController)),
 );
 
+/**
+ * @swagger
+ * /api/user/{chatId}:
+ *   delete:
+ *     summary: Delete a user by chat ID
+ *     tags: [Users]
+ *     parameters:
+ *       - $ref: '#/components/parameters/chatId'
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     message:
+ *                       type: string
+ *                       example: "DELETED"
+ *       404:
+ *         description: User not found
+ *       429:
+ *         description: Too many requests - rate limit exceeded
+ *       500:
+ *         description: Internal server error
+ */
 UserRouter.delete(
   "/:chatId",
   limiter(timeConstant.ONE_SECOND, 3, true),
