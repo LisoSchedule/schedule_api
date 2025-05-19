@@ -6,6 +6,7 @@ import { catchHandler } from "../middlewares/catch.middleware";
 import { timeConstant } from "../constants/time.constant";
 import { CreateUserSchema } from "../validators/create-user.validator";
 import { UserController } from "../controllers/user.controller";
+import { UpdateUserSchema } from "../validators/update-user.validator";
 
 export const UserRouter = Router();
 
@@ -51,7 +52,14 @@ const userController = new UserController();
  */
 UserRouter.post(
   "/",
-  validate(CreateUserSchema),
   limiter(timeConstant.ONE_SECOND, 3, true),
+  validate(CreateUserSchema),
   catchHandler(userController.createUser.bind(userController)),
+);
+
+UserRouter.patch(
+  "/:chatId",
+  limiter(timeConstant.ONE_SECOND, 3, true),
+  validate(UpdateUserSchema),
+  catchHandler(userController.updateUser.bind(userController)),
 );
