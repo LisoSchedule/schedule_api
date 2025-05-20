@@ -49,4 +49,12 @@ export class UserRepository {
 
     return updatedUser;
   }
+
+  async deleteUser(userId: number) {
+    await this.userRepository.delete({
+      where: {
+        id: userId,
+      },
+    });
+  }
 }
