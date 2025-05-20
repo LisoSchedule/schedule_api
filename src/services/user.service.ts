@@ -81,4 +81,14 @@ export class UserService {
 
     return this.userWithSettingsMapper.toDto(userWithSettings);
   }
+
+  async deleteUser(chatId: bigint) {
+    const existingUser = await this.userRepository.findUserByChatId(chatId);
+
+    if (!existingUser) {
+      throw new NotFound(errorConstant.USER_NOT_FOUND);
+    }
+
+    await this.userRepository.deleteUser(existingUser.id);
+  }
 }
