@@ -180,7 +180,7 @@ UserRouter.patch(
  *                   properties:
  *                     message:
  *                       type: string
- *                       example: "DELETED"
+ *                       example: "USER_DELETED"
  *       404:
  *         description: User not found
  *       429:
@@ -190,6 +190,6 @@ UserRouter.patch(
  */
 UserRouter.delete(
   "/:chatId",
-  limiter(timeConstant.ONE_SECOND, 3, true),
+  limiter(timeConstant.ONE_SECOND, 1, true),
   catchHandler(userController.deleteUser.bind(userController)),
 );
