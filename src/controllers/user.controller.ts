@@ -65,4 +65,16 @@ export class UserController {
       }),
     );
   }
+
+  async deleteUser(req: Request, res: Response) {
+    const chatId = BigInt(req.params["chatId"]!);
+
+    await this.userService.deleteUser(chatId);
+
+    res.status(200).json(
+      new SuccessResponseDto({
+        message: successConstant.USER_DELETED,
+      }),
+    );
+  }
 }
