@@ -44,4 +44,25 @@ export class UserController {
       }),
     );
   }
+
+  async upsertUserSettings(req: Request, res: Response) {
+    const chatId = BigInt(req.params["chatId"]!);
+
+    const updateUserSettingsDto: UpdateUserSettingsDto = {
+      notifications: req.body.notifications,
+      reminderTime: req.body.reminderTime,
+    };
+
+    const userWithSettings: UserWithSettingsDto = await this.userService.upsertUserSettings(
+      chatId,
+      updateUserSettingsDto,
+    );
+
+    res.status(200).json(
+      new SuccessResponseDto({
+        message: successConstant.USER_SETTINGS_UPDATED,
+        user: userWithSettings,
+      }),
+    );
+  }
 }
