@@ -66,14 +66,14 @@ export class UserService {
     return updatedUser;
   }
 
-  async updateUserSettings(chatId: bigint, data: UpdateUserSettingsDto) {
+  async upsertUserSettings(chatId: bigint, data: UpdateUserSettingsDto) {
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
     if (!existingUser) {
       throw new NotFound(errorConstant.USER_NOT_FOUND);
     }
 
-    await this.userSettingsRepository.updateUserSettings(existingUser.id, data);
+    await this.userSettingsRepository.upsertUserSettings(existingUser.id, data);
 
     const userWithSettings: UserWithSettings = await this.userRepository.getUserWithSettings(
       existingUser.id,
