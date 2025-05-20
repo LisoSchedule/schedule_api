@@ -5,10 +5,13 @@ import { User } from "@prisma/client";
 import { SuccessResponseDto } from "../dtos/success-response.dto";
 import { CreateUserDto } from "../dtos/create-user.dto";
 import { CurrentUserDto } from "../dtos/current-user.dto";
+import { UpdateUserDto } from "../dtos/update-user.dto";
+import { UpdateUserSettingsDto } from "../dtos/update-user-settings.dto";
+import { UserWithSettingsDto } from "../dtos/user-with-settings.dto";
 import successConstant from "../constants/success.constant";
 
 export class UserController {
-  private readonly userService: UserService = new UserService();
+  constructor(private readonly userService: UserService = new UserService()) {}
 
   async createUser(req: Request, res: Response) {
     const data: CreateUserDto = {
@@ -21,6 +24,23 @@ export class UserController {
       new SuccessResponseDto({
         message: successConstant.CREATED,
         user: new CurrentUserDto(newUser),
+      }),
+    );
+  }
+
+  async updateUser(req: Request, res: Response) {
+    const chatId = BigInt(req.params["chatId"]!);
+
+    const updateUserDto: UpdateUserDto = {
+      nickname: req.body.nickname,
+    };
+
+    const updatedUser: User = await this.userService.updateUser(chatId, updateUserDto);
+
+    res.status(200).json(
+      new SuccessResponseDto({
+        message: successConstant.USER_UPDATED,
+        user: new CurrentUserDto(updatedUser),
       }),
     );
   }
