@@ -1,10 +1,12 @@
-import { ReminderTime } from "@prisma/client";
 import { z as zod } from "zod";
+import validationConstant from "../constants/validation.constant";
 
 export const UpdateUserSchema = zod.object({
   body: zod.object({
-    nickname: zod.string().optional(),
-    notifications: zod.boolean().optional(),
-    reminderTime: zod.nativeEnum(ReminderTime).optional(),
+    nickname: zod
+      .string()
+      .nonempty({ message: validationConstant.CANNOT_BE_EMPTY })
+      .min(2, { message: validationConstant.FIELD_TOO_SHORT })
+      .max(30, { message: validationConstant.FIELD_TOO_LONG }),
   }),
 });
