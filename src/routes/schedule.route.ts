@@ -13,13 +13,13 @@ const scheduleController = new ScheduleController();
 
 /**
  * @swagger
- * /api/schedule/{chatId}:
+ * /api/schedule/{userId}:
  *   get:
- *     summary: Get schedule for a specific chat
- *     description: Retrieves the class schedule for a specific user identified by their chat ID
+ *     summary: Get schedule for user's group by userId
+ *     description: Retrieves the class schedule for a user based on the provided userId, date, and type.
  *     tags: [Schedule]
  *     parameters:
- *       - $ref: '#/components/parameters/chatId'
+ *       - $ref: '#/components/parameters/userId'
  *       - $ref: '#/components/parameters/date'
  *       - $ref: '#/components/parameters/type'
  *     responses:
@@ -39,7 +39,7 @@ const scheduleController = new ScheduleController();
  *         description: Internal server error
  */
 ScheduleRouter.get(
-  "/:chatId",
+  "/:userId",
   validate(GetScheduleSchema),
   limiter(timeConstant.ONE_SECOND, 3, true),
   catchHandler(scheduleController.getScheduleByParams.bind(scheduleController)),

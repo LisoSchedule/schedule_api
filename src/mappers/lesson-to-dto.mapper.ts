@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 import { LessonRecurrence } from "@prisma/client";
 import { LessonWithRelations } from "../types/lesson-with-relations.type";
 import { LessonResponseDto } from "../dtos/lesson-response.dto";
@@ -11,12 +9,9 @@ export class LessonToDtoMapper {
     lessonDate: Date,
   ): LessonResponseDto {
     return {
-      date: {
-        raw: lessonDate,
-        formatted: format(lessonDate, "EEEE, MMMM d"),
-      },
       lesson: {
         id: lesson.id,
+        lessonDate: lessonDate,
         subject: {
           id: lesson.subject.id,
           name: lesson.subject.name,

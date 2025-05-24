@@ -7,8 +7,10 @@ import { GetScheduleMapper } from "../mappers/get-schedule.mapper";
 import successConstant from "../constants/success.constant";
 
 export class ScheduleController {
-  private readonly scheduleService: ScheduleService = new ScheduleService();
-  private readonly getScheduleMapper: GetScheduleMapper = new GetScheduleMapper();
+  constructor(
+    private readonly scheduleService: ScheduleService = new ScheduleService(),
+    private readonly getScheduleMapper: GetScheduleMapper = new GetScheduleMapper(),
+  ) {}
 
   async getScheduleByParams(_req: Request, res: Response) {
     const getScheduleDto: GetScheduleDto = this.getScheduleMapper.toDto(
