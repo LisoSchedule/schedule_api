@@ -13,6 +13,21 @@ import successConstant from "../constants/success.constant";
 export class UserController {
   constructor(private readonly userService: UserService = new UserService()) {}
 
+  // ! At the moment, userId is just telegram bigint chatId
+
+  async getUserById(req: Request, res: Response) {
+    const userId = BigInt(req.params["userId"]!);
+
+    const userWithSettings = await this.userService.getUserWithSettingsById(userId);
+
+    res.status(201).json(
+      new SuccessResponseDto({
+        message: successConstant.USER_FETCHED,
+        user: userWithSettings,
+      }),
+    );
+  }
+
   async createUser(req: Request, res: Response) {
     const data: CreateUserDto = {
       body: req.body,
