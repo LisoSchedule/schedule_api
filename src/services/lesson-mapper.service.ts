@@ -53,7 +53,7 @@ export class LessonMapperService {
    */
   private sortLessonsByDateTime(lessons: LessonResponseDto[]): LessonResponseDto[] {
     return lessons.sort((a, b) => {
-      const dateCompare = a.date.raw.getTime() - b.date.raw.getTime();
+      const dateCompare = a.lesson.lessonDate.getTime() - b.lesson.lessonDate.getTime();
       if (dateCompare === 0) {
         return new Date(a.lesson.startTime).getTime() - new Date(b.lesson.startTime).getTime();
       }
