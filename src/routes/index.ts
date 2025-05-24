@@ -4,7 +4,7 @@ import { UserRouter } from "./user.route";
 import { ScheduleRouter } from "./schedule.route";
 const router = Router();
 
-router.use("/user", UserRouter);
+router.use("/users", UserRouter);
 
 router.use("/schedule", ScheduleRouter);
 

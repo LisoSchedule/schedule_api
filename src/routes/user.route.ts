@@ -15,7 +15,7 @@ const userController = new UserController();
 
 /**
  * @swagger
- * /api/user:
+ * /api/users:
  *   post:
  *     summary: Create a new user in telegram bot chat
  *     tags: [Users]
@@ -60,12 +60,12 @@ UserRouter.post(
 
 /**
  * @swagger
- * /api/user/{chatId}:
+ * /api/users/{userId}:
  *   patch:
  *     summary: Update a user's nickname
  *     tags: [Users]
  *     parameters:
- *       - $ref: '#/components/parameters/chatId'
+ *       - $ref: '#/components/parameters/userId'
  *     requestBody:
  *       required: true
  *       content:
@@ -101,7 +101,7 @@ UserRouter.post(
  *         description: Internal server error
  */
 UserRouter.patch(
-  "/:chatId",
+  "/:userId",
   limiter(timeConstant.ONE_SECOND, 3, true),
   validate(UpdateUserSchema),
   catchHandler(userController.updateUser.bind(userController)),
@@ -109,12 +109,12 @@ UserRouter.patch(
 
 /**
  * @swagger
- * /api/user/{chatId}/settings:
+ * /api/users/{userId}/settings:
  *   patch:
- *     summary: Update a user's settings
+ *     summary: Update user settings by userId
  *     tags: [Users]
  *     parameters:
- *       - $ref: '#/components/parameters/chatId'
+ *       - $ref: '#/components/parameters/userId'
  *     requestBody:
  *       required: true
  *       content:
@@ -150,7 +150,7 @@ UserRouter.patch(
  *         description: Internal server error
  */
 UserRouter.patch(
-  "/:chatId/settings",
+  "/:userId/settings",
   limiter(timeConstant.ONE_SECOND, 3, true),
   validate(UpdateUserSettingsSchema),
   catchHandler(userController.upsertUserSettings.bind(userController)),
@@ -158,12 +158,12 @@ UserRouter.patch(
 
 /**
  * @swagger
- * /api/user/{chatId}:
+ * /api/users/{userId}:
  *   delete:
- *     summary: Delete a user by chatId
+ *     summary: Delete a user by userId
  *     tags: [Users]
  *     parameters:
- *       - $ref: '#/components/parameters/chatId'
+ *       - $ref: '#/components/parameters/userId'
  *     responses:
  *       200:
  *         description: User deleted successfully
@@ -189,7 +189,7 @@ UserRouter.patch(
  *         description: Internal server error
  */
 UserRouter.delete(
-  "/:chatId",
+  "/:userId",
   limiter(timeConstant.ONE_SECOND, 1, true),
   catchHandler(userController.deleteUser.bind(userController)),
 );
