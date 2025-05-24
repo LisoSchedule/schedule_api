@@ -15,6 +15,46 @@ const userController = new UserController();
 
 /**
  * @swagger
+ * /api/users/{userId}:
+ *   get:
+ *     summary: Get a user by userId (telegram chatId)
+ *     tags: [Users]
+ *     parameters:
+ *       - $ref: '#/components/parameters/userId'
+ *     responses:
+ *       200:
+ *         description: User retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     message:
+ *                       type: string
+ *                       example: "USER_FETCHED"
+ *                     user:
+ *                       $ref: '#/components/schemas/CurrentUser'
+ *       404:
+ *         description: User not found
+ *       429:
+ *         description: Too many requests - rate limit exceeded
+ *       500:
+ *         description: Internal server error
+ */
+UserRouter.get(
+  "/:userId",
+  limiter(timeConstant.ONE_SECOND, 3, true),
+  catchHandler(userController.getUserById.bind(userController)),
+);
+
+/**
+ * @swagger
  * /api/users:
  *   post:
  *     summary: Create a new user in telegram bot chat
@@ -62,7 +102,7 @@ UserRouter.post(
  * @swagger
  * /api/users/{userId}:
  *   patch:
- *     summary: Update a user's nickname
+ *     summary: Update a user's nickname by userId (telegram chatId)
  *     tags: [Users]
  *     parameters:
  *       - $ref: '#/components/parameters/userId'
@@ -111,7 +151,7 @@ UserRouter.patch(
  * @swagger
  * /api/users/{userId}/settings:
  *   patch:
- *     summary: Update user settings by userId
+ *     summary: Update user settings by userId (telegram chatId)
  *     tags: [Users]
  *     parameters:
  *       - $ref: '#/components/parameters/userId'
@@ -160,7 +200,7 @@ UserRouter.patch(
  * @swagger
  * /api/users/{userId}:
  *   delete:
- *     summary: Delete a user by userId
+ *     summary: Delete a user by userId (telegram chatId)
  *     tags: [Users]
  *     parameters:
  *       - $ref: '#/components/parameters/userId'
