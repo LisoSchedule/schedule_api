@@ -29,33 +29,22 @@ export class ScheduleService {
     if (!user) {
       throw new NotFound(errorConstant.USER_NOT_FOUND);
     }
-    console.log(`\n[ScheduleService]\tuser`, user);
 
-    // ✅ 1. get date range
     const daysToCheck = this.scheduleDateCalculation.getScheduleDateRange(date, type);
-    console.log(`\n[ScheduleService]\tdaysToCheck`, daysToCheck);
 
-    // ✅ 2. get all recurrences
     const allRecurrences = await this.recurrenceRepository.getAllRecurrences();
-    console.log(`\n[ScheduleService]\tallRecurrences`, allRecurrences);
 
-    // ✅ 3. validate recurrences
-    console.log("\n\n\n");
     const validRecurrences = this.lessonRecurrenceService.validateRecurrences(
       user,
       daysToCheck,
       allRecurrences,
     );
-    console.log(`\n\n\n[ScheduleService]\tvalidRecurrences`, validRecurrences, "\n\n");
 
-    // ✅ 4. retrieve lessons by recurrences
     const lessons = await this.lessonRepository.getLessonsByRecurrences(
       user.groupId,
       validRecurrences,
     );
-    console.log(`\n[ScheduleService]\tlessons`, lessons);
 
-    // ✅ 5. map recurrences to lessons
     const recurrenceMap = this.lessonRecurrenceService.mapRecurrencesToLessons(validRecurrences);
 
     const metadata: ScheduleMetadataDto = {
@@ -65,7 +54,6 @@ export class ScheduleService {
       type,
     };
 
-    // ✅ 6. generate and sort lesson DTOs
     const lessonsResponseDto = this.lessonMapperService.generateLessonResponseDtos(
       lessons,
       recurrenceMap,
