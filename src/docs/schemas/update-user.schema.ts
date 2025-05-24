@@ -19,6 +19,6 @@
  *       schema:
  *         type: integer
  *         format: int64
- *       description: ID of the user to update
+ *       description: telegram chat id of the user
  *       example: 123456789
  */
