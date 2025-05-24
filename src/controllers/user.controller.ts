@@ -29,13 +29,13 @@ export class UserController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const chatId = BigInt(req.params["chatId"]!);
+    const userId = BigInt(req.params["userId"]!);
 
     const updateUserDto: UpdateUserDto = {
       nickname: req.body.nickname,
     };
 
-    const updatedUser: User = await this.userService.updateUser(chatId, updateUserDto);
+    const updatedUser: User = await this.userService.updateUser(userId, updateUserDto);
 
     res.status(200).json(
       new SuccessResponseDto({
@@ -46,7 +46,7 @@ export class UserController {
   }
 
   async upsertUserSettings(req: Request, res: Response) {
-    const chatId = BigInt(req.params["chatId"]!);
+    const userId = BigInt(req.params["userId"]!);
 
     const updateUserSettingsDto: UpdateUserSettingsDto = {
       notifications: req.body.notifications,
@@ -54,7 +54,7 @@ export class UserController {
     };
 
     const userWithSettings: UserWithSettingsDto = await this.userService.upsertUserSettings(
-      chatId,
+      userId,
       updateUserSettingsDto,
     );
 
@@ -67,9 +67,9 @@ export class UserController {
   }
 
   async deleteUser(req: Request, res: Response) {
-    const chatId = BigInt(req.params["chatId"]!);
+    const userId = BigInt(req.params["userId"]!);
 
-    await this.userService.deleteUser(chatId);
+    await this.userService.deleteUser(userId);
 
     res.status(200).json(
       new SuccessResponseDto({
