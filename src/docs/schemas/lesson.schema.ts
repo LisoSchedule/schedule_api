@@ -26,7 +26,7 @@
  *         duration:
  *           type: integer
  *           description: Duration of the class in minutes
- *           example: 90
+ *           example: 95
  *         recurrence:
  *           $ref: '#/components/schemas/LessonRecurrence'
  *           description: Recurrence information for the class
