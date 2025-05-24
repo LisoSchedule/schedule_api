@@ -23,9 +23,10 @@ export class ScheduleService {
   ) {}
 
   async getScheduleByParams(dto: GetScheduleDto): Promise<ScheduleResponseDto> {
-    const { chatId, date = new Date(), type = ScheduleType.TODAY } = dto;
+    const { userId, date = new Date(), type = ScheduleType.TODAY } = dto;
 
-    const user = await this.userRepository.findUserByChatId(chatId);
+    const user = await this.userRepository.findUserById(userId);
+
     if (!user) {
       throw new NotFound(errorConstant.USER_NOT_FOUND);
     }
