@@ -17,6 +17,20 @@ export class UserService {
     private readonly userWithSettingsMapper: UserWithSettingsMapper = new UserWithSettingsMapper(),
   ) {}
 
+  async getUserWithSettingsById(chatId: bigint) {
+    const user = await this.userRepository.findUserByChatId(chatId);
+
+    if (!user) {
+      throw new NotFound(errorConstant.USER_NOT_FOUND);
+    }
+
+    const userWithSettings: UserWithSettings = await this.userRepository.getUserWithSettings(
+      user.id,
+    );
+
+    return this.userWithSettingsMapper.toDto(userWithSettings);
+  }
+
   async createUser(data: CreateUserDto) {
     const { chatId, username, nickname, groupId } = data.body || data;
 

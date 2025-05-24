@@ -13,7 +13,7 @@
  *         reminderTime:
  *           type: string
  *           enum: ["FiveMinutes", "TenMinutes", "FifteenMinutes", "ThirtyMinutes", "OneHour"]
- *           description: When to send reminders before events
+ *           description: When to send reminders before events (FiveMinutes, TenMinutes, FifteenMinutes, ThirtyMinutes, OneHour)
  *           example: "ThirtyMinutes"
  *           default: "FifteenMinutes"
  *   parameters:
@@ -24,6 +24,6 @@
  *       schema:
  *         type: integer
  *         format: int64
- *       description: ID of the user to update
+ *       description: telegram chat id of the user
  *       example: 123456789
  */
