@@ -12,6 +12,16 @@ export class UserRepository {
     return newUser;
   }
 
+  async findUserById(userId: number): Promise<User | null> {
+    const user = await this.userRepository.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return user;
+  }
+
   async findUserByChatId(chatId: bigint): Promise<User | null> {
     const user = await this.userRepository.findFirst({
       where: {
