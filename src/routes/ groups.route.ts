@@ -56,6 +56,14 @@ GroupRouter.get(
  *   get:
  *     summary: Get a specific group by with relations by group id
  *     tags: [Groups]
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: id of the group
  *     responses:
  *       200:
  *         description: Group retrieved successfully
@@ -72,7 +80,7 @@ GroupRouter.get(
  *                   properties:
  *                     message:
  *                       type: string
- *                       example: "FETCHED"
+ *                       example: "GROUP_FETCHED"
  *                     data:
  *                       $ref: '#/components/schemas/GroupWithRelations'
  *       404:
