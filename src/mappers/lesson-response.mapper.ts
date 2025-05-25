@@ -2,8 +2,8 @@ import { LessonRecurrence } from "@prisma/client";
 import { LessonWithRelations } from "../types/lesson-with-relations.type";
 import { LessonResponseDto } from "../dtos/lesson-response.dto";
 
-export class LessonToDtoMapper {
-  mapToDto(
+export class LessonResponseMapper {
+  toDto(
     lesson: LessonWithRelations,
     recurrence: LessonRecurrence,
     lessonDate: Date,
