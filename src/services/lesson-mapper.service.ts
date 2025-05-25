@@ -1,13 +1,13 @@
 import { LessonRecurrence } from "@prisma/client";
 
 import { LessonWithRelations } from "../types/lesson-with-relations.type";
-import { LessonToDtoMapper } from "../mappers/lesson-to-dto.mapper";
+import { LessonResponseMapper } from "../mappers/lesson-response.mapper";
 import { ScheduleDateCalculation } from "../utils/schedule-date-calculation.util";
 import { LessonResponseDto } from "../dtos/lesson-response.dto";
 
 export class LessonMapperService {
   constructor(
-    private readonly lessonToDtoMapper: LessonToDtoMapper = new LessonToDtoMapper(),
+    private readonly lessonResponseMapper: LessonResponseMapper = new LessonResponseMapper(),
     private readonly scheduleDateCalculation: ScheduleDateCalculation = new ScheduleDateCalculation(),
   ) {}
 
@@ -34,7 +34,7 @@ export class LessonMapperService {
         const daysArray = Array.isArray(daysToCheck) ? daysToCheck : [daysToCheck];
         for (const day of daysArray) {
           if (this.scheduleDateCalculation.isDateInLessonRecurrence(day, recurrence)) {
-            result.push(this.lessonToDtoMapper.mapToDto(lesson, recurrence, day));
+            result.push(this.lessonResponseMapper.toDto(lesson, recurrence, day));
             break;
           }
         }
