@@ -3,6 +3,11 @@ export default {
 
   DELETED: { message: "DELETED", statusCode: 200 },
 
+  FETCHED: { message: "FETCHED", statusCode: 200 },
+
+  GROUP_FETCHED: { message: "GROUP_FETCHED", statusCode: 200 },
+  GROUPS_FETCHED: { message: "GROUPS_FETCHED", statusCode: 200 },
+
   NOTE_ADDED: { message: "NOTE_ADDED", statusCode: 201 },
   NOTIFICATION_SCHEDULED: { message: "NOTIFICATION_SCHEDULED", statusCode: 200 },
 
