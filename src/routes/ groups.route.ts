@@ -27,12 +27,12 @@ const groupController = new GroupController();
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "GROUPS_FETCHED"
  *                 data:
  *                   type: object
  *                   properties:
- *                     message:
- *                       type: string
- *                       example: "GROUPS_FETCHED"
  *                     groups:
  *                       type: array
  *                       items:
@@ -75,12 +75,12 @@ GroupRouter.get(
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "GROUP_FETCHED"
  *                 data:
  *                   type: object
  *                   properties:
- *                     message:
- *                       type: string
- *                       example: "GROUP_FETCHED"
  *                     data:
  *                       $ref: '#/components/schemas/GroupWithRelations'
  *       404:

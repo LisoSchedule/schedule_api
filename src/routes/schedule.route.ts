@@ -28,7 +28,17 @@ const scheduleController = new ScheduleController();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ScheduleResponse'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: SCHEDULE_FETCHED
+ *                 data:
+ *                   type: object
+ *                   $ref: '#/components/schemas/ScheduleResponse'
  *       400:
  *         description: Bad request - invalid parameters
  *       404:

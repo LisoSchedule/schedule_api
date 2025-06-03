@@ -32,14 +32,12 @@ const userController = new UserController();
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: USER_FETCHED
  *                 data:
  *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "USER_FETCHED"
- *                     user:
- *                       $ref: '#/components/schemas/CurrentUser'
+ *                   $ref: '#/components/schemas/CurrentUser'
  *       404:
  *         description: User not found
  *       429:
@@ -76,14 +74,12 @@ UserRouter.get(
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: USER_CREATED
  *                 data:
  *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "CREATED"
- *                     user:
- *                       $ref: '#/components/schemas/CurrentUser'
+ *                   $ref: '#/components/schemas/CurrentUser'
  *       400:
  *         description: Invalid request body or user creation failed
  *       429:
@@ -123,14 +119,12 @@ UserRouter.post(
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: USER_UPDATED
  *                 data:
  *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "USER_UPDATED"
- *                     user:
- *                       $ref: '#/components/schemas/CurrentUser'
+ *                   $ref: '#/components/schemas/CurrentUser'
  *       400:
  *         description: Invalid request body
  *       404:
@@ -172,14 +166,12 @@ UserRouter.patch(
  *                 success:
  *                   type: boolean
  *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: USER_SETTINGS_UPDATED
  *                 data:
  *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "USER_SETTINGS_UPDATED"
- *                     user:
- *                       $ref: '#/components/schemas/UserWithSettings'
+ *                   $ref: '#/components/schemas/UserWithSettings'
  *       400:
  *         description: Invalid request body
  *       404:
@@ -215,12 +207,9 @@ UserRouter.patch(
  *                 success:
  *                   type: boolean
  *                   example: true
- *                 data:
- *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: "USER_DELETED"
+ *                 message:
+ *                   type: string
+ *                   example: USER_DELETED
  *       404:
  *         description: User not found
  *       429:
