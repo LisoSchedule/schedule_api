@@ -5,18 +5,17 @@ import { SuccessResponseDto } from "../dtos/success-response.dto";
 import { GroupWithRelationsDto } from "../dtos/group-with-relations.dto";
 import successConstant from "../constants/success.constant";
 
+const { GROUPS_FETCHED, GROUP_FETCHED } = successConstant;
+
 export class GroupController {
   constructor(private readonly groupService: GroupService = new GroupService()) {}
 
   async getAllGroups(_req: Request, res: Response) {
     const groups = await this.groupService.getAllGroups();
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.GROUPS_FETCHED,
-        data: groups,
-      }),
-    );
+    res
+      .status(GROUPS_FETCHED.statusCode)
+      .json(new SuccessResponseDto(groups, GROUPS_FETCHED.message));
   }
 
   async getGroupById(req: Request, res: Response) {
@@ -24,11 +23,6 @@ export class GroupController {
 
     const group: GroupWithRelationsDto = await this.groupService.getGroupById(groupId);
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.GROUP_FETCHED,
-        data: group,
-      }),
-    );
+    res.status(GROUP_FETCHED.statusCode).json(new SuccessResponseDto(group, GROUP_FETCHED.message));
   }
 }
