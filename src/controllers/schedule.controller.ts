@@ -6,6 +6,8 @@ import { GetScheduleDto } from "../dtos/get-schedule.dto";
 import { GetScheduleMapper } from "../mappers/get-schedule.mapper";
 import successConstant from "../constants/success.constant";
 
+const { SCHEDULE_FETCHED } = successConstant;
+
 export class ScheduleController {
   constructor(
     private readonly scheduleService: ScheduleService = new ScheduleService(),
@@ -20,11 +22,8 @@ export class ScheduleController {
 
     const scheduleData = await this.scheduleService.getScheduleByParams(getScheduleDto);
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.SCHEDULE_FETCHED,
-        data: scheduleData,
-      }),
-    );
+    res
+      .status(SCHEDULE_FETCHED.statusCode)
+      .json(new SuccessResponseDto(scheduleData, SCHEDULE_FETCHED.message));
   }
 }
