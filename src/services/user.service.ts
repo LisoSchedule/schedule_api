@@ -19,8 +19,8 @@ export class UserService {
     private readonly userWithSettingsMapper: UserWithSettingsMapper = new UserWithSettingsMapper(),
   ) {}
 
-  async getUserWithSettingsById(chatId: bigint) {
-    const user = await this.userRepository.findUserByChatId(chatId);
+  async getUserWithSettingsById(userId: number) {
+    const user = await this.userRepository.findUserById(userId);
 
     if (!user) {
       throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
@@ -62,10 +62,10 @@ export class UserService {
     return newUser;
   }
 
-  async updateUser(chatId: bigint, data: UpdateUserDto) {
+  async updateUser(userId: number, data: UpdateUserDto) {
     const { nickname } = data;
 
-    const existingUser = await this.userRepository.findUserByChatId(chatId);
+    const existingUser = await this.userRepository.findUserById(userId);
 
     if (!existingUser) {
       throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
@@ -82,8 +82,8 @@ export class UserService {
     return updatedUser;
   }
 
-  async upsertUserSettings(chatId: bigint, data: UpdateUserSettingsDto) {
-    const existingUser = await this.userRepository.findUserByChatId(chatId);
+  async upsertUserSettings(userId: number, data: UpdateUserSettingsDto) {
+    const existingUser = await this.userRepository.findUserById(userId);
 
     if (!existingUser) {
       throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
@@ -98,8 +98,8 @@ export class UserService {
     return this.userWithSettingsMapper.toDto(userWithSettings);
   }
 
-  async deleteUser(chatId: bigint) {
-    const existingUser = await this.userRepository.findUserByChatId(chatId);
+  async deleteUser(userId: number) {
+    const existingUser = await this.userRepository.findUserById(userId);
 
     if (!existingUser) {
       throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
