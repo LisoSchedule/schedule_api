@@ -16,10 +16,8 @@ const { USER_FETCHED, USER_CREATED, USER_UPDATED, USER_SETTINGS_UPDATED, USER_DE
 export class UserController {
   constructor(private readonly userService: UserService = new UserService()) {}
 
-  // ! At the moment, userId is just telegram bigint chatId
-
   async getUserById(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const userWithSettings = await this.userService.getUserWithSettingsById(userId);
 
@@ -41,7 +39,7 @@ export class UserController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const updateUserDto: UpdateUserDto = {
       nickname: req.body.nickname,
@@ -55,7 +53,7 @@ export class UserController {
   }
 
   async upsertUserSettings(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const updateUserSettingsDto: UpdateUserSettingsDto = {
       notifications: req.body.notifications,
@@ -73,10 +71,10 @@ export class UserController {
   }
 
   async deleteUser(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     await this.userService.deleteUser(userId);
 
-    res.status(USER_DELETED.statusCode).json(new SuccessResponseDto(null, USER_DELETED.message));
+    res.status(USER_DELETED.statusCode).json(new SuccessResponseDto(USER_DELETED.message));
   }
 }
