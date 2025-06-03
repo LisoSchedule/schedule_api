@@ -1,23 +1,19 @@
 export default {
-  CREATED: "CREATED",
+  CREATED: { message: "CREATED", statusCode: 201 },
 
-  DELETED: "DELETED",
+  DELETED: { message: "DELETED", statusCode: 200 },
 
-  FETCHED: "FETCHED",
+  NOTE_ADDED: { message: "NOTE_ADDED", statusCode: 201 },
+  NOTIFICATION_SCHEDULED: { message: "NOTIFICATION_SCHEDULED", statusCode: 200 },
 
-  GROUP_FETCHED: "GROUP_FETCHED",
-  GROUPS_FETCHED: "GROUPS_FETCHED",
+  OK: { message: "OK", statusCode: 200 },
 
-  NOTE_ADDED: "NOTE_ADDED",
-  NOTIFICATION_SCHEDULED: "NOTIFICATION_SCHEDULED",
+  SCHEDULE_FETCHED: { message: "SCHEDULE_FETCHED", statusCode: 200 },
 
-  OK: "OK",
-
-  SCHEDULE_FETCHED: "SCHEDULE_FETCHED",
-
-  UPDATED: "UPDATED",
-  USER_DELETED: "USER_DELETED",
-  USER_FETCHED: "USER_FETCHED",
-  USER_UPDATED: "USER_UPDATED",
-  USER_SETTINGS_UPDATED: "USER_SETTINGS_UPDATED",
+  UPDATED: { message: "UPDATED", statusCode: 200 },
+  USER_CREATED: { message: "USER_CREATED", statusCode: 201 },
+  USER_DELETED: { message: "USER_DELETED", statusCode: 200 },
+  USER_FETCHED: { message: "USER_FETCHED", statusCode: 200 },
+  USER_UPDATED: { message: "USER_UPDATED", statusCode: 200 },
+  USER_SETTINGS_UPDATED: { message: "USER_SETTINGS_UPDATED", statusCode: 200 },
 } as const;

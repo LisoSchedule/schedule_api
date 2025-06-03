@@ -10,22 +10,20 @@ import { UpdateUserSettingsDto } from "../dtos/update-user-settings.dto";
 import { UserWithSettingsDto } from "../dtos/user-with-settings.dto";
 import successConstant from "../constants/success.constant";
 
+const { USER_FETCHED, USER_CREATED, USER_UPDATED, USER_SETTINGS_UPDATED, USER_DELETED } =
+  successConstant;
+
 export class UserController {
   constructor(private readonly userService: UserService = new UserService()) {}
 
-  // ! At the moment, userId is just telegram bigint chatId
-
   async getUserById(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const userWithSettings = await this.userService.getUserWithSettingsById(userId);
 
-    res.status(201).json(
-      new SuccessResponseDto({
-        message: successConstant.USER_FETCHED,
-        user: userWithSettings,
-      }),
-    );
+    res
+      .status(USER_FETCHED.statusCode)
+      .json(new SuccessResponseDto(userWithSettings, USER_FETCHED.message));
   }
 
   async createUser(req: Request, res: Response) {
@@ -35,16 +33,13 @@ export class UserController {
 
     const newUser: User = await this.userService.createUser(data);
 
-    res.status(201).json(
-      new SuccessResponseDto({
-        message: successConstant.CREATED,
-        user: new CurrentUserDto(newUser),
-      }),
-    );
+    res
+      .status(USER_CREATED.statusCode)
+      .json(new SuccessResponseDto(new CurrentUserDto(newUser), USER_CREATED.message));
   }
 
   async updateUser(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const updateUserDto: UpdateUserDto = {
       nickname: req.body.nickname,
@@ -52,16 +47,13 @@ export class UserController {
 
     const updatedUser: User = await this.userService.updateUser(userId, updateUserDto);
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.USER_UPDATED,
-        user: new CurrentUserDto(updatedUser),
-      }),
-    );
+    res
+      .status(USER_UPDATED.statusCode)
+      .json(new SuccessResponseDto(new CurrentUserDto(updatedUser), USER_UPDATED.message));
   }
 
   async upsertUserSettings(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     const updateUserSettingsDto: UpdateUserSettingsDto = {
       notifications: req.body.notifications,
@@ -73,23 +65,16 @@ export class UserController {
       updateUserSettingsDto,
     );
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.USER_SETTINGS_UPDATED,
-        user: userWithSettings,
-      }),
-    );
+    res
+      .status(USER_SETTINGS_UPDATED.statusCode)
+      .json(new SuccessResponseDto(userWithSettings, USER_SETTINGS_UPDATED.message));
   }
 
   async deleteUser(req: Request, res: Response) {
-    const userId = BigInt(req.params["userId"]!);
+    const userId = Number(req.params["userId"]!);
 
     await this.userService.deleteUser(userId);
 
-    res.status(200).json(
-      new SuccessResponseDto({
-        message: successConstant.USER_DELETED,
-      }),
-    );
+    res.status(USER_DELETED.statusCode).json(new SuccessResponseDto(USER_DELETED.message));
   }
 }

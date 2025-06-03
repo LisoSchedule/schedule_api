@@ -19,6 +19,6 @@
  *       schema:
  *         type: integer
  *         format: int64
- *       description: telegram chat id of the user
- *       example: 123456789
+ *       description: User's id
+ *       example: 1
  */

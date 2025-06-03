@@ -13,7 +13,7 @@
  *         date:
  *           type: string
  *           format: date-time
- *           description: date to retrieve schedule for, defaults is `now` if not provided
+ *           description: Date to retrieve schedule for, defaults is `now` if not provided
  *           example: "2025-05-11T10:15:02.000Z"
  *         type:
  *           type: string
@@ -22,7 +22,7 @@
  *           description: type of schedule to retrieve
  *           example: "today"
  *       required:
- *         - chatId
+ *         - userId
  *   parameters:
  *     userId:
  *       in: path
@@ -31,7 +31,7 @@
  *       schema:
  *         type: integer
  *         format: int64
- *       description: user's id
+ *       description: User's id
  *       example: 1
  *     date:
  *       in: query
@@ -39,7 +39,7 @@
  *       schema:
  *         type: string
  *         format: date-time
- *       description: date to retrieve schedule for, defaults is `now` if not provided
+ *       description: Date to retrieve schedule for, defaults is `now` if not provided
  *       required: false
  *       example: "2025-05-11T10:15:02.000Z"
  *     type:
