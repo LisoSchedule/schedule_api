@@ -1,4 +1,4 @@
-import { NotFound } from "http-errors";
+import createHttpError from "http-errors";
 
 import { GetScheduleDto } from "../dtos/get-schedule.dto";
 import { UserRepository } from "../repositories/user.repository";
@@ -11,6 +11,8 @@ import { LessonRepository } from "../repositories/lesson.repository";
 import { LessonRecurrenceService } from "./lesson-recurrence.service";
 import { LessonMapperService } from "./lesson-mapper.service";
 import errorConstant from "../constants/error.constant";
+
+const { USER_NOT_FOUND } = errorConstant;
 
 export class ScheduleService {
   constructor(
@@ -28,7 +30,7 @@ export class ScheduleService {
     const user = await this.userRepository.findUserById(userId);
 
     if (!user) {
-      throw new NotFound(errorConstant.USER_NOT_FOUND);
+      throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
     const daysToCheck = this.scheduleDateCalculation.getScheduleDateRange(date, type);
