@@ -1,4 +1,4 @@
-import { BadRequest, NotFound } from "http-errors";
+import createHttpError from "http-errors";
 
 import { Prisma, User } from "@prisma/client";
 import { UserRepository } from "../repositories/user.repository";
@@ -9,6 +9,8 @@ import { UpdateUserSettingsDto } from "../dtos/update-user-settings.dto";
 import { UserWithSettings } from "../types/user-with-settings.type";
 import { UserWithSettingsMapper } from "../mappers/user-with-settings.mapper";
 import errorConstant from "../constants/error.constant";
+
+const { USER_NOT_FOUND, USER_ALREADY_EXISTS, BAD_REQUEST } = errorConstant;
 
 export class UserService {
   constructor(
@@ -21,7 +23,7 @@ export class UserService {
     const user = await this.userRepository.findUserByChatId(chatId);
 
     if (!user) {
-      throw new NotFound(errorConstant.USER_NOT_FOUND);
+      throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
     const userWithSettings: UserWithSettings = await this.userRepository.getUserWithSettings(
@@ -37,7 +39,7 @@ export class UserService {
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
     if (existingUser) {
-      throw new BadRequest(errorConstant.USER_ALREADY_EXISTS);
+      throw createHttpError(USER_ALREADY_EXISTS.statusCode, USER_ALREADY_EXISTS.message);
     }
 
     const userToCreate: Prisma.UserCreateInput = {
@@ -54,7 +56,7 @@ export class UserService {
     const newUser = await this.userRepository.createUser(userToCreate);
 
     if (!newUser) {
-      throw new BadRequest(errorConstant.BAD_REQUEST);
+      throw createHttpError(BAD_REQUEST.statusCode, BAD_REQUEST.message);
     }
 
     return newUser;
@@ -66,7 +68,7 @@ export class UserService {
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
     if (!existingUser) {
-      throw new NotFound(errorConstant.USER_NOT_FOUND);
+      throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
     const updatedUser: User = await this.userRepository.updateUser(existingUser.id, {
@@ -74,7 +76,7 @@ export class UserService {
     });
 
     if (!updatedUser) {
-      throw new BadRequest(errorConstant.BAD_REQUEST);
+      throw createHttpError(BAD_REQUEST.statusCode, BAD_REQUEST.message);
     }
 
     return updatedUser;
@@ -84,7 +86,7 @@ export class UserService {
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
     if (!existingUser) {
-      throw new NotFound(errorConstant.USER_NOT_FOUND);
+      throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
     await this.userSettingsRepository.upsertUserSettings(existingUser.id, data);
@@ -100,7 +102,7 @@ export class UserService {
     const existingUser = await this.userRepository.findUserByChatId(chatId);
 
     if (!existingUser) {
-      throw new NotFound(errorConstant.USER_NOT_FOUND);
+      throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
     await this.userRepository.deleteUser(existingUser.id);
