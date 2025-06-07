@@ -9,8 +9,14 @@
  *           type: string
  *           description: User's nickname
  *           example: "JohnDoe"
- *       required:
- *         - nickname
+ *           minLength: 1
+ *           maxLength: 50
+ *         email:
+ *           type: string
+ *           description: User's email address
+ *           example: "john.doe@example.com"
+ *           format: email
+ *       # Both fields are optional per the validator
  *   parameters:
  *     userId:
  *       in: path
