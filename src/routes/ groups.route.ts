@@ -31,12 +31,9 @@ const groupController = new GroupController();
  *                   type: string
  *                   example: "GROUPS_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     groups:
- *                       type: array
- *                       items:
- *                         $ref: '#/components/schemas/Group'
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Group'
  *       404:
  *         description: Groups not found
  *       429:
@@ -79,10 +76,7 @@ GroupRouter.get(
  *                   type: string
  *                   example: "GROUP_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     data:
- *                       $ref: '#/components/schemas/GroupWithRelations'
+ *                   $ref: '#/components/schemas/GroupWithRelations'
  *       404:
  *         description: Group not found
  *       429:

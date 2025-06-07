@@ -1,25 +1,25 @@
 import { Router } from "express";
 
 import { limiter } from "../middlewares/limiter.middleware";
+import { timeConstant } from "../constants/time.constant";
 import { validate } from "../middlewares/validate.middleware";
 import { catchHandler } from "../middlewares/catch.middleware";
-import { timeConstant } from "../constants/time.constant";
-import { TeacherController } from "../controllers/teacher.controller";
-import { AddTeacherSchema } from "../validators/add-teacher.validator";
+import { SubjectController } from "../controllers/subject.controller";
+import { AddSubjectSchema } from "../validators/add-subject.validator";
 
-export const TeachersRouter = Router();
+export const SubjectsRouter = Router();
 
-const teacherController = new TeacherController();
+const subjectController: SubjectController = new SubjectController();
 
 /**
  * @swagger
- * /api/teachers:
+ * /api/subjects:
  *   get:
- *     summary: Get all teachers
- *     tags: [Teachers]
+ *     summary: Get all subjects
+ *     tags: [Subjects]
  *     responses:
  *       200:
- *         description: Teachers retrieved successfully
+ *         description: Subjects retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -30,48 +30,48 @@ const teacherController = new TeacherController();
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "TEACHERS_FETCHED"
+ *                   example: "SUBJECTS_FETCHED"
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Teacher'
+ *                     $ref: '#/components/schemas/Subject'
  *       404:
- *         description: Teachers not found
+ *         description: Subjects not found
  *       429:
  *         description: Too many requests
  *       500:
  *         description: Internal server error
  */
-TeachersRouter.get(
+SubjectsRouter.get(
   "/",
   limiter(timeConstant.ONE_SECOND, 3, true),
-  catchHandler(teacherController.getAllTeachers.bind(teacherController)),
+  catchHandler(subjectController.getAllSubjects.bind(subjectController)),
 );
 
 /**
  * @swagger
- * /api/teachers/{teacherId}:
+ * /api/subjects/{subjectId}:
  *   get:
- *     summary: Get a specific teacher by id
- *     tags: [Teachers]
+ *     summary: Get a specific subject by id
+ *     tags: [Subjects]
  *     parameters:
  *       - in: path
- *         name: teacherId
+ *         name: subjectId
  *         required: true
  *         schema:
  *           type: integer
  *           example: 1
- *         description: id of the teacher to retrieve
+ *         description: id of the subject to retrieve
  *       - in: query
  *         name: includeRelations
  *         required: false
  *         schema:
  *           type: boolean
  *           default: false
- *         description: Whether to include related data (subjects, schedules, etc.)
+ *         description: Whether to include related data
  *     responses:
  *       200:
- *         description: Teacher retrieved successfully
+ *         description: Subject retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -84,35 +84,35 @@ TeachersRouter.get(
  *                   type: string
  *                   example: "TEACHER_FETCHED"
  *                 data:
- *                   $ref: '#/components/schemas/Teacher'
+ *                   $ref: '#/components/schemas/Subject'
  *       404:
- *         description: Teacher not found
+ *         description: Subject not found
  *       429:
  *         description: Too many requests
  *       500:
  *         description: Internal server error
  */
-TeachersRouter.get(
-  "/:teacherId",
+SubjectsRouter.get(
+  "/:subjectId",
   limiter(timeConstant.ONE_SECOND, 3, true),
-  catchHandler(teacherController.getTeacherById.bind(teacherController)),
+  catchHandler(subjectController.getSubjectById.bind(subjectController)),
 );
 
 /**
  * @swagger
- * /api/teachers:
+ * /api/subjects:
  *   post:
- *     summary: Add new teacher
- *     tags: [Teachers]
+ *     summary: Add new subject
+ *     tags: [Subjects]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AddTeacher'
+ *             $ref: '#/components/schemas/AddSubject'
  *     responses:
  *       201:
- *         description: Teacher added successfully
+ *         description: Subject added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -123,20 +123,20 @@ TeachersRouter.get(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: TEACHER_CREATED
+ *                   example: SUBJECT_CREATED
  *                 data:
  *                   type: object
- *                   $ref: '#/components/schemas/Teacher'
+ *                   $ref: '#/components/schemas/Subject'
  *       400:
- *         description: Invalid request body or user creation failed
+ *         description: Invalid request body or subject creation failed
  *       429:
  *         description: Too many requests - rate limit exceeded
  *       500:
  *         description: Internal server error
  */
-TeachersRouter.post(
+SubjectsRouter.post(
   "/",
   limiter(timeConstant.ONE_SECOND, 3, true),
-  validate(AddTeacherSchema),
-  catchHandler(teacherController.createTeacher.bind(teacherController)),
+  validate(AddSubjectSchema),
+  catchHandler(subjectController.createSubject.bind(subjectController)),
 );

@@ -14,6 +14,9 @@ export default {
   OK: { message: "OK", statusCode: 200 },
 
   SCHEDULE_FETCHED: { message: "SCHEDULE_FETCHED", statusCode: 200 },
+  SUBJECT_CREATED: { message: "SUBJECT_CREATED", statusCode: 201 },
+  SUBJECT_FETCHED: { message: "SUBJECT_FETCHED", statusCode: 200 },
+  SUBJECTS_FETCHED: { message: "SUBJECTS_FETCHED", statusCode: 200 },
 
   TEACHER_CREATED: { message: "TEACHER_CREATED", statusCode: 201 },
   TEACHER_FETCHED: { message: "TEACHER_FETCHED", statusCode: 200 },
