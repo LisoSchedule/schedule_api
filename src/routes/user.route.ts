@@ -98,7 +98,7 @@ UserRouter.post(
  * @swagger
  * /api/users/{userId}:
  *   patch:
- *     summary: Update a user's nickname by userId (telegram chatId)
+ *     summary: Update optionally user's information by userId
  *     tags: [Users]
  *     parameters:
  *       - $ref: '#/components/parameters/userId'

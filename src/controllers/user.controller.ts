@@ -43,6 +43,7 @@ export class UserController {
 
     const updateUserDto: UpdateUserDto = {
       nickname: req.body.nickname,
+      email: req.body.email,
     };
 
     const updatedUser: User = await this.userService.updateUser(userId, updateUserDto);
