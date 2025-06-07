@@ -5,6 +5,7 @@ export class CurrentUserDto {
   chatId!: number;
   username!: string | null;
   nickname!: string | null;
+  email!: string | null;
   groupId!: number;
   createdAt!: Date;
   updatedAt!: Date;
@@ -14,6 +15,7 @@ export class CurrentUserDto {
     this.chatId = Number(user.chatId!);
     this.username = user.username || null;
     this.nickname = user.nickname || null;
+    this.email = user.email || null;
     this.groupId = user.groupId!;
     this.createdAt = user.createdAt!;
     this.updatedAt = user.updatedAt!;
