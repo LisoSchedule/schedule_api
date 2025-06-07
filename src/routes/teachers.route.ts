@@ -5,6 +5,7 @@ import { validate } from "../middlewares/validate.middleware";
 import { catchHandler } from "../middlewares/catch.middleware";
 import { timeConstant } from "../constants/time.constant";
 import { TeacherController } from "../controllers/teacher.controller";
+import { AddTeacherSchema } from "../validators/add-teacher.validator";
 
 export const TeachersRouter = Router();
 
@@ -101,4 +102,47 @@ TeachersRouter.get(
   "/:teacherId",
   limiter(timeConstant.ONE_SECOND, 3, true),
   catchHandler(teacherController.getTeacherById.bind(teacherController)),
+);
+
+/**
+ * @swagger
+ * /api/teachers:
+ *   post:
+ *     summary: Add new teacher
+ *     tags: [Teachers]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AddTeacher'
+ *     responses:
+ *       201:
+ *         description: Teacher added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: TEACHER_CREATED
+ *                 data:
+ *                   type: object
+ *                   $ref: '#/components/schemas/Teacher'
+ *       400:
+ *         description: Invalid request body or user creation failed
+ *       429:
+ *         description: Too many requests - rate limit exceeded
+ *       500:
+ *         description: Internal server error
+ */
+TeachersRouter.post(
+  "/",
+  limiter(timeConstant.ONE_SECOND, 3, true),
+  validate(AddTeacherSchema),
+  catchHandler(teacherController.createTeacher.bind(teacherController)),
 );
