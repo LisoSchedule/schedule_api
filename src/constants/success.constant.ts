@@ -15,6 +15,9 @@ export default {
 
   SCHEDULE_FETCHED: { message: "SCHEDULE_FETCHED", statusCode: 200 },
 
+  TEACHER_FETCHED: { message: "TEACHER_FETCHED", statusCode: 200 },
+  TEACHERS_FETCHED: { message: "TEACHERS_FETCHED", statusCode: 200 },
+
   UPDATED: { message: "UPDATED", statusCode: 200 },
   USER_CREATED: { message: "USER_CREATED", statusCode: 201 },
   USER_DELETED: { message: "USER_DELETED", statusCode: 200 },
