@@ -1,6 +1,6 @@
 import { Prisma, User } from "@prisma/client";
-import prisma from "../db/data-sourse";
 import { UserWithSettings } from "../types/user-with-settings.type";
+import prisma from "../db/data-sourse";
 
 export class UserRepository {
   private readonly userRepository = prisma.user;
@@ -46,15 +46,12 @@ export class UserRepository {
     return userWithSettings;
   }
 
-  async updateUser(id: number, data: Partial<User>): Promise<User> {
+  async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
     const updatedUser = await this.userRepository.update({
       where: {
         id,
       },
-      data: {
-        ...data,
-        updatedAt: new Date(),
-      },
+      data,
     });
 
     return updatedUser;

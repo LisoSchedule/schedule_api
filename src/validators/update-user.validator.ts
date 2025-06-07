@@ -5,8 +5,9 @@ export const UpdateUserSchema = zod.object({
   body: zod.object({
     nickname: zod
       .string()
-      .nonempty({ message: validationConstant.CANNOT_BE_EMPTY })
-      .min(2, { message: validationConstant.FIELD_TOO_SHORT })
-      .max(30, { message: validationConstant.FIELD_TOO_LONG }),
+      .min(1, { message: validationConstant.FIELD_TOO_SHORT })
+      .max(50, { message: validationConstant.FIELD_TOO_LONG })
+      .optional(),
+    email: zod.string().email({ message: validationConstant.INVALID_EMAIL }).optional(),
   }),
 });

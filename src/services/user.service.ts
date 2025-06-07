@@ -9,6 +9,7 @@ import { UpdateUserSettingsDto } from "../dtos/update-user-settings.dto";
 import { UserWithSettings } from "../types/user-with-settings.type";
 import { UserWithSettingsMapper } from "../mappers/user-with-settings.mapper";
 import errorConstant from "../constants/error.constant";
+import { UpdateUserBuilder } from "../utils/update-user.builder";
 
 const { USER_NOT_FOUND, USER_ALREADY_EXISTS, BAD_REQUEST } = errorConstant;
 
@@ -63,7 +64,7 @@ export class UserService {
   }
 
   async updateUser(userId: number, data: UpdateUserDto) {
-    const { nickname } = data;
+    const dataToUpdate = new UpdateUserBuilder(data).build();
 
     const existingUser = await this.userRepository.findUserById(userId);
 
@@ -71,9 +72,7 @@ export class UserService {
       throw createHttpError(USER_NOT_FOUND.statusCode, USER_NOT_FOUND.message);
     }
 
-    const updatedUser: User = await this.userRepository.updateUser(existingUser.id, {
-      nickname: nickname,
-    });
+    const updatedUser: User = await this.userRepository.updateUser(existingUser.id, dataToUpdate);
 
     if (!updatedUser) {
       throw createHttpError(BAD_REQUEST.statusCode, BAD_REQUEST.message);

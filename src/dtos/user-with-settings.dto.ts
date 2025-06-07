@@ -5,6 +5,10 @@ export type UserWithSettingsDto = {
   chatId: number;
   username: string | null;
   nickname: string | null;
+  email: string | null;
+  groupId: number | null;
+  createdAt: Date;
+  updatedAt: Date;
   settings: {
     id: number;
     userId: number;

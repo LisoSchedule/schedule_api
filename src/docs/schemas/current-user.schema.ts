@@ -22,6 +22,10 @@
  *           type: string
  *           description: User's telegram nickname
  *           example: "Andrew"
+ *         email:
+ *           type: string
+ *           description: User's email address
+ *           example: "wastardy@gmail.com"
  *         groupId:
  *           type: number
  *           description: Unique identifier for the group
