@@ -17,7 +17,7 @@ const userController = new UserController();
  * @swagger
  * /api/users/{userId}:
  *   get:
- *     summary: Get a user by userId (telegram chatId)
+ *     summary: Get a user with settings by userId
  *     tags: [Users]
  *     parameters:
  *       - $ref: '#/components/parameters/userId'
@@ -37,7 +37,7 @@ const userController = new UserController();
  *                   example: USER_FETCHED
  *                 data:
  *                   type: object
- *                   $ref: '#/components/schemas/CurrentUser'
+ *                   $ref: '#/components/schemas/UserWithSettings'
  *       404:
  *         description: User not found
  *       429:
