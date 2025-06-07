@@ -32,12 +32,9 @@ const teacherController = new TeacherController();
  *                   type: string
  *                   example: "TEACHERS_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     groups:
- *                       type: array
- *                       items:
- *                         $ref: '#/components/schemas/Teacher'
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Teacher'
  *       404:
  *         description: Teachers not found
  *       429:
@@ -87,10 +84,7 @@ TeachersRouter.get(
  *                   type: string
  *                   example: "TEACHER_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     data:
- *                       $ref: '#/components/schemas/Teacher'
+ *                   $ref: '#/components/schemas/Teacher'
  *       404:
  *         description: Teacher not found
  *       429:

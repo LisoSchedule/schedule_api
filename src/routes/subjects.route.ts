@@ -32,12 +32,9 @@ const subjectController: SubjectController = new SubjectController();
  *                   type: string
  *                   example: "SUBJECTS_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     groups:
- *                       type: array
- *                       items:
- *                         $ref: '#/components/schemas/Subject'
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Subject'
  *       404:
  *         description: Subjects not found
  *       429:
@@ -87,10 +84,7 @@ SubjectsRouter.get(
  *                   type: string
  *                   example: "TEACHER_FETCHED"
  *                 data:
- *                   type: object
- *                   properties:
- *                     data:
- *                       $ref: '#/components/schemas/Subject'
+ *                   $ref: '#/components/schemas/Subject'
  *       404:
  *         description: Subject not found
  *       429:
