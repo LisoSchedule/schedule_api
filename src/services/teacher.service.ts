@@ -2,8 +2,10 @@ import createHttpError from "http-errors";
 
 import { TeacherRepository } from "../repositories/teacher.repository";
 import errorConstant from "../constants/error.constant";
+import { AddTeacherDto } from "../dtos/add-teacher.dto";
+import { Prisma } from "@prisma/client";
 
-const { TEACHER_NOT_FOUND } = errorConstant;
+const { TEACHER_NOT_FOUND, BAD_REQUEST } = errorConstant;
 
 export class TeacherService {
   constructor(private readonly teacherRepository: TeacherRepository = new TeacherRepository()) {}
@@ -24,5 +26,22 @@ export class TeacherService {
     }
 
     return teacher;
+  }
+
+  async createTeacher(data: AddTeacherDto) {
+    const { name, position } = data.body || data;
+
+    const teacherToCreate: Prisma.TeacherCreateInput = {
+      name,
+      position,
+    };
+
+    const createdTeacher = await this.teacherRepository.createTeacher(teacherToCreate);
+
+    if (!createdTeacher) {
+      throw createHttpError(BAD_REQUEST.statusCode, BAD_REQUEST.message);
+    }
+
+    return createdTeacher;
   }
 }
