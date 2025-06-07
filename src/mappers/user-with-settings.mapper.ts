@@ -8,6 +8,10 @@ export class UserWithSettingsMapper {
       chatId: Number(user.chatId),
       username: user.username ?? null,
       nickname: user.nickname ?? null,
+      email: user.email ?? null,
+      groupId: user.groupId ?? null,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
       settings: user.settings
         ? {
             id: user.settings.id,
