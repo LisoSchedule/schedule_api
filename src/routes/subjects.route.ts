@@ -5,6 +5,7 @@ import { timeConstant } from "../constants/time.constant";
 import { validate } from "../middlewares/validate.middleware";
 import { catchHandler } from "../middlewares/catch.middleware";
 import { SubjectController } from "../controllers/subject.controller";
+import { AddSubjectSchema } from "../validators/add-subject.validator";
 
 export const SubjectsRouter = Router();
 
@@ -101,4 +102,47 @@ SubjectsRouter.get(
   "/:subjectId",
   limiter(timeConstant.ONE_SECOND, 3, true),
   catchHandler(subjectController.getSubjectById.bind(subjectController)),
+);
+
+/**
+ * @swagger
+ * /api/subjects:
+ *   post:
+ *     summary: Add new subject
+ *     tags: [Subjects]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AddSubject'
+ *     responses:
+ *       201:
+ *         description: Subject added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: SUBJECT_CREATED
+ *                 data:
+ *                   type: object
+ *                   $ref: '#/components/schemas/Subject'
+ *       400:
+ *         description: Invalid request body or subject creation failed
+ *       429:
+ *         description: Too many requests - rate limit exceeded
+ *       500:
+ *         description: Internal server error
+ */
+SubjectsRouter.post(
+  "/",
+  limiter(timeConstant.ONE_SECOND, 3, true),
+  validate(AddSubjectSchema),
+  catchHandler(subjectController.createSubject.bind(subjectController)),
 );
