@@ -1,3 +1,4 @@
+import { Prisma, Teacher } from "@prisma/client";
 import prisma from "../db/data-sourse";
 
 export class TeacherRepository {
@@ -12,6 +13,12 @@ export class TeacherRepository {
       where: {
         id: teacherId,
       },
+    });
+  }
+
+  async createTeacher(teacherToCreate: Prisma.TeacherCreateInput): Promise<Teacher> {
+    return await this.teacherRepository.create({
+      data: teacherToCreate,
     });
   }
 }
