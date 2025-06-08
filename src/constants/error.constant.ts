@@ -13,6 +13,8 @@ export default {
 
   NOT_FOUND: { message: "NOT_FOUND", statusCode: 404 },
 
+  RECURRENCE_NOT_FOUND: { message: "RECURRENCE_NOT_FOUND", statusCode: 404 },
+
   SUBJECT_NOT_FOUND: { message: "SUBJECT_NOT_FOUND", statusCode: 404 },
 
   TEACHER_NOT_FOUND: { message: "TEACHER_NOT_FOUND", statusCode: 404 },

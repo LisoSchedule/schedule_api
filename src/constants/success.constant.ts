@@ -18,6 +18,10 @@ export default {
 
   OK: { message: "OK", statusCode: 200 },
 
+  RECURRENCE_CREATED: { message: "RECURRENCE_CREATED", statusCode: 201 },
+  RECURRENCE_FETCHED: { message: "RECURRENCE_FETCHED", statusCode: 200 },
+  RECURRENCES_FETCHED: { message: "RECURRENCES_FETCHED", statusCode: 200 },
+
   SCHEDULE_FETCHED: { message: "SCHEDULE_FETCHED", statusCode: 200 },
   SUBJECT_CREATED: { message: "SUBJECT_CREATED", statusCode: 201 },
   SUBJECT_FETCHED: { message: "SUBJECT_FETCHED", statusCode: 200 },
