@@ -16,6 +16,14 @@ export class RecurrenceRepository {
     });
   }
 
+  async getRecurrencesByLessonId(lessonId: number) {
+    return await this.recurrenceRepository.findMany({
+      where: {
+        lessonId: lessonId,
+      },
+    });
+  }
+
   async createRecurrence(
     recurrenceToCreate: Prisma.LessonRecurrenceCreateInput,
   ): Promise<LessonRecurrence> {
