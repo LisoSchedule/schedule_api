@@ -1,3 +1,4 @@
+import { Group, Prisma } from "@prisma/client";
 import prisma from "../db/data-sourse";
 
 export class GroupRepository {
@@ -40,6 +41,12 @@ export class GroupRepository {
           },
         },
       },
+    });
+  }
+
+  async createGroup(groupToCreate: Prisma.GroupCreateInput): Promise<Group> {
+    return await this.groupRepository.create({
+      data: groupToCreate,
     });
   }
 }

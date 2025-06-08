@@ -1,11 +1,13 @@
 import createHttpError from "http-errors";
 
+import { Prisma } from "@prisma/client";
 import { GroupRepository } from "../repositories/group.repository";
 import { GroupWithRelationsMapper } from "../mappers/group-with-relations.mapper";
 import { GroupWithRelationsDto } from "../dtos/group-with-relations.dto";
+import { AddGroupDto } from "../dtos/add-group.dto";
 import errorConstant from "../constants/error.constant";
 
-const { GROUP_NOT_FOUND, NOT_FOUND } = errorConstant;
+const { GROUP_NOT_FOUND, NOT_FOUND, BAD_REQUEST } = errorConstant;
 
 export class GroupService {
   constructor(
@@ -37,5 +39,22 @@ export class GroupService {
     const groupWithRelationsDto: GroupWithRelationsDto = this.groupWithRelationsMapper.toDto(group);
 
     return groupWithRelationsDto;
+  }
+
+  async createGroup(data: AddGroupDto) {
+    const { name, subGroup } = data.body || data;
+
+    const groupToCreate: Prisma.GroupCreateInput = {
+      name,
+      subGroup,
+    };
+
+    const createdGroup = await this.groupRepository.createGroup(groupToCreate);
+
+    if (!createdGroup) {
+      throw createHttpError(BAD_REQUEST.statusCode, BAD_REQUEST.message);
+    }
+
+    return createdGroup;
   }
 }

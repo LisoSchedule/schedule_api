@@ -9,6 +9,7 @@ export default {
 
   FETCHED: { message: "FETCHED", statusCode: 200 },
 
+  GROUP_CREATED: { message: "GROUP_CREATED", statusCode: 201 },
   GROUP_FETCHED: { message: "GROUP_FETCHED", statusCode: 200 },
   GROUPS_FETCHED: { message: "GROUPS_FETCHED", statusCode: 200 },
 
