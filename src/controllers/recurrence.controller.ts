@@ -21,7 +21,7 @@ export class RecurrenceController {
   async getRecurrenceById(req: Request, res: Response) {
     const recurrenceId = Number(req.params["recurrenceId"]);
 
-    const recurrence = await this.recurrenceService.getTeacherByIdOrThrow(recurrenceId);
+    const recurrence = await this.recurrenceService.getRecurrenceByIdOrThrow(recurrenceId);
 
     res
       .status(RECURRENCE_FETCHED.statusCode)
