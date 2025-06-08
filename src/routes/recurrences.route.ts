@@ -56,7 +56,7 @@ RecurrencesRouter.get(
  *     tags: [Recurrences]
  *     parameters:
  *       - in: path
- *         name: teacherId
+ *         name: recurrenceId
  *         required: true
  *         schema:
  *           type: integer
@@ -112,7 +112,7 @@ RecurrencesRouter.get(
  *             $ref: '#/components/schemas/AddRecurrence'
  *     responses:
  *       201:
- *         description: Teacher added successfully
+ *         description: Recurrence added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -123,7 +123,7 @@ RecurrencesRouter.get(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: RECURRENCE_CREATED
+ *                   example: "RECURRENCE_CREATED"
  *                 data:
  *                   type: object
  *                   $ref: '#/components/schemas/Recurrence'
