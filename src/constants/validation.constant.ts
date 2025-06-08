@@ -7,4 +7,7 @@ export default {
   INVALID_BOOLEAN: "Field must be a boolean",
   INVALID_ENUM_VALUE: "Invalid value for enum field",
   INVALID_EMAIL: "Invalid email format",
+  INVALID_DATE_TIME_FORMAT: "Invalid date-time format",
+
+  MUST_BE_POSITIVE_INTEGER: "Field must be a positive integer",
 } as const;
