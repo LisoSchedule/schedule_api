@@ -1,9 +1,9 @@
 import createHttpError from "http-errors";
 
 import { TeacherRepository } from "../repositories/teacher.repository";
-import errorConstant from "../constants/error.constant";
 import { AddTeacherDto } from "../dtos/add-teacher.dto";
 import { Prisma } from "@prisma/client";
+import errorConstant from "../constants/error.constant";
 
 const { TEACHER_NOT_FOUND, BAD_REQUEST } = errorConstant;
 
