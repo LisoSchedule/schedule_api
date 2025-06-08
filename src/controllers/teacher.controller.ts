@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 import { TeacherService } from "../services/teacher.service";
+import { AddTeacherDto } from "../dtos/add-teacher.dto";
 import { SuccessResponseDto } from "../dtos/success-response.dto";
 import successConstant from "../constants/success.constant";
-import { AddTeacherDto } from "../dtos/add-teacher.dto";
 
 const { TEACHERS_FETCHED, TEACHER_FETCHED, TEACHER_CREATED } = successConstant;
 
