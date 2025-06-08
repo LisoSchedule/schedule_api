@@ -13,6 +13,10 @@ export default {
   GROUP_FETCHED: { message: "GROUP_FETCHED", statusCode: 200 },
   GROUPS_FETCHED: { message: "GROUPS_FETCHED", statusCode: 200 },
 
+  LESSON_CREATED: { message: "LESSON_CREATED", statusCode: 201 },
+  LESSON_FETCHED: { message: "LESSON_FETCHED", statusCode: 200 },
+  LESSONS_FETCHED: { message: "LESSONS_FETCHED", statusCode: 200 },
+
   NOTE_ADDED: { message: "NOTE_ADDED", statusCode: 201 },
   NOTIFICATION_SCHEDULED: { message: "NOTIFICATION_SCHEDULED", statusCode: 200 },
 

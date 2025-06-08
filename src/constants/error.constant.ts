@@ -11,6 +11,8 @@ export default {
   INTERNAL_SERVER_ERROR: { message: "INTERNAL_SERVER_ERROR", statusCode: 500 },
   INVALID_DATA: { message: "INVALID_DATA", statusCode: 400 },
 
+  LESSON_NOT_FOUND: { message: "LESSON_NOT_FOUND", statusCode: 404 },
+
   NOT_FOUND: { message: "NOT_FOUND", statusCode: 404 },
 
   RECURRENCE_NOT_FOUND: { message: "RECURRENCE_NOT_FOUND", statusCode: 404 },
