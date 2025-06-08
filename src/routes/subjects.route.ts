@@ -82,7 +82,7 @@ SubjectsRouter.get(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "TEACHER_FETCHED"
+ *                   example: "SUBJECT_FETCHED"
  *                 data:
  *                   $ref: '#/components/schemas/Subject'
  *       404:
@@ -123,7 +123,7 @@ SubjectsRouter.get(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: SUBJECT_CREATED
+ *                   example: "SUBJECT_CREATED"
  *                 data:
  *                   type: object
  *                   $ref: '#/components/schemas/Subject'

@@ -7,7 +7,7 @@ import { timeConstant } from "../constants/time.constant";
 import { GroupController } from "../controllers/group.controller";
 import { AddGroupSchema } from "../validators/add-group.validator";
 
-export const GroupRouter = Router();
+export const GroupsRouter = Router();
 
 const groupController = new GroupController();
 
@@ -42,7 +42,7 @@ const groupController = new GroupController();
  *       500:
  *         description: Internal server error
  */
-GroupRouter.get(
+GroupsRouter.get(
   "/",
   limiter(timeConstant.ONE_SECOND, 3, true),
   catchHandler(groupController.getAllGroups.bind(groupController)),
@@ -85,7 +85,7 @@ GroupRouter.get(
  *       500:
  *         description: Internal server error
  */
-GroupRouter.get(
+GroupsRouter.get(
   "/:groupId",
   limiter(timeConstant.ONE_SECOND, 3, true),
   catchHandler(groupController.getGroupById.bind(groupController)),
@@ -116,7 +116,7 @@ GroupRouter.get(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: GROUP_CREATED
+ *                   example: "GROUP_CREATED"
  *                 data:
  *                   type: object
  *                   $ref: '#/components/schemas/Group'
@@ -127,7 +127,7 @@ GroupRouter.get(
  *       500:
  *         description: Internal server error
  */
-GroupRouter.post(
+GroupsRouter.post(
   "/",
   limiter(timeConstant.ONE_SECOND, 3, true),
   validate(AddGroupSchema),

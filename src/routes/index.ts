@@ -1,7 +1,9 @@
 import { Router } from "express";
 
 import { AudiencesRouter } from "./audiences.route";
-import { GroupRouter } from "./groups.route";
+import { GroupsRouter } from "./groups.route";
+import { LessonsRouter } from "./lessons.route";
+import { RecurrencesRouter } from "./recurrences.route";
 import { ScheduleRouter } from "./schedule.route";
 import { SubjectsRouter } from "./subjects.route";
 import { TeachersRouter } from "./teachers.route";
@@ -11,7 +13,11 @@ const router = Router();
 
 router.use("/audiences", AudiencesRouter);
 
-router.use("/groups", GroupRouter);
+router.use("/groups", GroupsRouter);
+
+router.use("/lessons", LessonsRouter);
+
+router.use("/recurrences", RecurrencesRouter);
 
 router.use("/schedule", ScheduleRouter);
 
