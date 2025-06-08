@@ -1,12 +1,15 @@
 import { Router } from "express";
 
-import { GroupRouter } from "./ groups.route";
+import { AudiencesRouter } from "./audiences.route";
+import { GroupRouter } from "./groups.route";
 import { ScheduleRouter } from "./schedule.route";
 import { SubjectsRouter } from "./subjects.route";
 import { TeachersRouter } from "./teachers.route";
 import { UserRouter } from "./user.route";
 
 const router = Router();
+
+router.use("/audiences", AudiencesRouter);
 
 router.use("/groups", GroupRouter);
 

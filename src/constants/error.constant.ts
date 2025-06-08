@@ -1,4 +1,7 @@
 export default {
+  AUDIENCE_NOT_FOUND: { message: "AUDIENCE_NOT_FOUND", statusCode: 404 },
+  AUDIENCE_ALREADY_EXISTS: { message: "AUDIENCE_ALREADY_EXISTS", statusCode: 409 },
+
   BAD_REQUEST: { message: "BAD_REQUEST", statusCode: 400 },
 
   CHAT_ID_REQUIRED: { message: "CHAT_ID_REQUIRED", statusCode: 400 },

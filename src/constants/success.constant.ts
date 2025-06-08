@@ -1,4 +1,8 @@
 export default {
+  AUDIENCE_CREATED: { message: "AUDIENCE_CREATED", statusCode: 201 },
+  AUDIENCE_FETCHED: { message: "AUDIENCE_FETCHED", statusCode: 200 },
+  AUDIENCES_FETCHED: { message: "AUDIENCES_FETCHED", statusCode: 200 },
+
   CREATED: { message: "CREATED", statusCode: 201 },
 
   DELETED: { message: "DELETED", statusCode: 200 },
