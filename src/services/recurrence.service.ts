@@ -20,7 +20,7 @@ export class RecurrenceService {
     return await this.recurrenceRepository.getRecurrenceById(recurrenceId);
   }
 
-  async getTeacherByIdOrThrow(recurrenceId: number) {
+  async getRecurrenceByIdOrThrow(recurrenceId: number) {
     const recurrence = await this.getRecurrenceById(recurrenceId);
 
     if (!recurrence) {
